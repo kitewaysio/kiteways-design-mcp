@@ -12,11 +12,11 @@
     "README.md",
     "assets"
   ],
-  "engines": {
-    "node": ">=20"
-  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.1",
     "zod": "4.1.5"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

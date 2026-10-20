@@ -48,7 +48,7 @@ var __export = (target, all) => {
 };
 var __require = /* @__PURE__ */ createRequire(import.meta.url);
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/compile/codegen/code.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/compile/codegen/code.js
 var require_code = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.regexpCode = exports.getEsmExportName = exports.getProperty = exports.safeStringify = exports.stringify = exports.strConcat = exports.addCodeArg = exports.str = exports._ = exports.nil = exports._Code = exports.Name = exports.IDENTIFIER = exports._CodeOrName = undefined;
@@ -202,7 +202,7 @@ var require_code = __commonJS(function(exports) {
   exports.regexpCode = regexpCode;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/compile/codegen/scope.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/compile/codegen/scope.js
 var require_scope = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.ValueScope = exports.ValueScopeName = exports.Scope = exports.varKinds = exports.UsedValueState = undefined;
@@ -348,7 +348,7 @@ var require_scope = __commonJS(function(exports) {
   exports.ValueScope = ValueScope;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/compile/codegen/index.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/compile/codegen/index.js
 var require_codegen = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.or = exports.and = exports.not = exports.CodeGen = exports.operators = exports.varKinds = exports.ValueScopeName = exports.ValueScope = exports.Scope = exports.Name = exports.regexpCode = exports.stringify = exports.getProperty = exports.nil = exports.strConcat = exports.str = exports._ = undefined;
@@ -1058,7 +1058,7 @@ var require_codegen = __commonJS(function(exports) {
   }
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/compile/util.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/compile/util.js
 var require_util = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.checkStrictMode = exports.getErrorPath = exports.Type = exports.useFunc = exports.setEvaluated = exports.evaluatedPropsToName = exports.mergeEvaluated = exports.eachItem = exports.unescapeJsonPointer = exports.escapeJsonPointer = exports.escapeFragment = exports.unescapeFragment = exports.schemaRefOrVal = exports.schemaHasRulesButRef = exports.schemaHasRules = exports.checkUnknownRules = exports.alwaysValidSchema = exports.toHash = undefined;
@@ -1222,7 +1222,7 @@ var require_util = __commonJS(function(exports) {
   exports.checkStrictMode = checkStrictMode;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/compile/names.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/compile/names.js
 var require_names = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var codegen_1 = require_codegen();
@@ -1247,7 +1247,7 @@ var require_names = __commonJS(function(exports) {
   exports.default = names;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/compile/errors.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/compile/errors.js
 var require_errors = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.extendErrors = exports.resetErrorsCount = exports.reportExtraError = exports.reportError = exports.keyword$DataError = exports.keywordError = undefined;
@@ -1365,7 +1365,7 @@ var require_errors = __commonJS(function(exports) {
   }
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/compile/validate/boolSchema.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/compile/validate/boolSchema.js
 var require_boolSchema = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.boolOrEmptySchema = exports.topBoolOrEmptySchema = undefined;
@@ -1413,7 +1413,7 @@ var require_boolSchema = __commonJS(function(exports) {
   }
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/compile/rules.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/compile/rules.js
 var require_rules = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.getRules = exports.isJSONType = undefined;
@@ -1441,7 +1441,7 @@ var require_rules = __commonJS(function(exports) {
   exports.getRules = getRules;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/compile/validate/applicability.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/compile/validate/applicability.js
 var require_applicability = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.shouldUseRule = exports.shouldUseGroup = exports.schemaHasRulesForType = undefined;
@@ -1461,7 +1461,7 @@ var require_applicability = __commonJS(function(exports) {
   exports.shouldUseRule = shouldUseRule;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/compile/validate/dataType.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/compile/validate/dataType.js
 var require_dataType = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.reportTypeError = exports.checkDataTypes = exports.checkDataType = exports.coerceAndCheckDataType = exports.getJSONTypes = exports.getSchemaTypes = exports.DataType = undefined;
@@ -1642,7 +1642,7 @@ var require_dataType = __commonJS(function(exports) {
   }
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/compile/validate/defaults.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/compile/validate/defaults.js
 var require_defaults = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.assignDefaults = undefined;
@@ -1676,7 +1676,7 @@ var require_defaults = __commonJS(function(exports) {
   }
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/code.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/code.js
 var require_code2 = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.validateUnion = exports.validateArray = exports.usePattern = exports.callValidateCode = exports.schemaProperties = exports.allSchemaProperties = exports.noPropertyInData = exports.propertyInData = exports.isOwnProperty = exports.hasPropFunc = exports.reportMissingProp = exports.checkMissingProp = exports.checkReportMissingProp = undefined;
@@ -1805,7 +1805,7 @@ var require_code2 = __commonJS(function(exports) {
   exports.validateUnion = validateUnion;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/compile/validate/keyword.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/compile/validate/keyword.js
 var require_keyword = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.validateKeywordUsage = exports.validSchemaType = exports.funcKeywordCode = exports.macroKeywordCode = undefined;
@@ -1920,7 +1920,7 @@ var require_keyword = __commonJS(function(exports) {
   exports.validateKeywordUsage = validateKeywordUsage;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/compile/validate/subschema.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/compile/validate/subschema.js
 var require_subschema = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.extendSubschemaMode = exports.extendSubschemaData = exports.getSubschema = undefined;
@@ -2000,7 +2000,7 @@ var require_subschema = __commonJS(function(exports) {
   exports.extendSubschemaMode = extendSubschemaMode;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/fast-deep-equal/index.js
+// ../../_temp/design-mcp/node_modules/fast-deep-equal/index.js
 var require_fast_deep_equal = __commonJS(function(exports, module) {
   module.exports = function equal(a, b) {
     if (a === b)
@@ -2042,7 +2042,7 @@ var require_fast_deep_equal = __commonJS(function(exports, module) {
   };
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/json-schema-traverse/index.js
+// ../../_temp/design-mcp/node_modules/json-schema-traverse/index.js
 var require_json_schema_traverse = __commonJS(function(exports, module) {
   var traverse = module.exports = function(schema, opts, cb) {
     if (typeof opts == "function") {
@@ -2125,7 +2125,7 @@ var require_json_schema_traverse = __commonJS(function(exports, module) {
   }
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/compile/resolve.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/compile/resolve.js
 var require_resolve = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.getSchemaRefs = exports.resolveUrl = exports.normalizeId = exports._getFullPath = exports.getFullPath = exports.inlineRef = undefined;
@@ -2278,7 +2278,7 @@ var require_resolve = __commonJS(function(exports) {
   exports.getSchemaRefs = getSchemaRefs;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/compile/validate/index.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/compile/validate/index.js
 var require_validate = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.getData = exports.KeywordCxt = exports.validateFunctionCode = undefined;
@@ -2783,7 +2783,7 @@ var require_validate = __commonJS(function(exports) {
   exports.getData = getData;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/runtime/validation_error.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/runtime/validation_error.js
 var require_validation_error = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
 
@@ -2797,7 +2797,7 @@ var require_validation_error = __commonJS(function(exports) {
   exports.default = ValidationError;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/compile/ref_error.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/compile/ref_error.js
 var require_ref_error = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var resolve_1 = require_resolve();
@@ -2812,7 +2812,7 @@ var require_ref_error = __commonJS(function(exports) {
   exports.default = MissingRefError;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/compile/index.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/compile/index.js
 var require_compile = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.resolveSchema = exports.getCompilingSchema = exports.resolveRef = exports.compileSchema = exports.SchemaEnv = undefined;
@@ -3033,7 +3033,7 @@ var require_compile = __commonJS(function(exports) {
   }
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/refs/data.json
+// ../../_temp/design-mcp/node_modules/ajv/dist/refs/data.json
 var require_data = __commonJS(function(exports, module) {
   module.exports = {
     $id: "https://raw.githubusercontent.com/ajv-validator/ajv/master/lib/refs/data.json#",
@@ -3050,7 +3050,7 @@ var require_data = __commonJS(function(exports, module) {
   };
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/fast-uri/lib/utils.js
+// ../../_temp/design-mcp/node_modules/fast-uri/lib/utils.js
 var require_utils = __commonJS(function(exports, module) {
   var isUUID = RegExp.prototype.test.bind(/^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/iu);
   var isIPv4 = RegExp.prototype.test.bind(/^(?:(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d|\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d|\d)$/u);
@@ -3599,7 +3599,7 @@ var require_utils = __commonJS(function(exports, module) {
   };
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/fast-uri/lib/schemes.js
+// ../../_temp/design-mcp/node_modules/fast-uri/lib/schemes.js
 var require_schemes = __commonJS(function(exports, module) {
   var { isUUID } = require_utils();
   var URN_REG = /^([\da-z][\d\-a-z]{0,31}):((?:[\w!$'()*+,\-./:;=@]|%[\da-f]{2})+)$/iu;
@@ -3774,7 +3774,7 @@ var require_schemes = __commonJS(function(exports, module) {
   };
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/fast-uri/index.js
+// ../../_temp/design-mcp/node_modules/fast-uri/index.js
 var require_fast_uri = __commonJS(function(exports, module) {
   var { normalizeIPv6, removeDotSegments, removeDotSegmentsRelative, recomposeAuthority, normalizePercentEncoding, normalizePathEncoding, serializePathEncoding, normalizeQueryFragmentEncoding, encodeQuery, encodeFragment, reescapeHostDelimiters, isIPv4, nonSimpleDomain } = require_utils();
   var { SCHEMES, getSchemeHandler } = require_schemes();
@@ -4199,7 +4199,7 @@ var require_fast_uri = __commonJS(function(exports, module) {
   module.exports.fastUri = fastUri;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/runtime/uri.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/runtime/uri.js
 var require_uri = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var uri = require_fast_uri();
@@ -4207,7 +4207,7 @@ var require_uri = __commonJS(function(exports) {
   exports.default = uri;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/core.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/core.js
 var require_core = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.CodeGen = exports.Name = exports.nil = exports.stringify = exports.str = exports._ = exports.KeywordCxt = undefined;
@@ -4800,7 +4800,7 @@ var require_core = __commonJS(function(exports) {
   }
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/core/id.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/core/id.js
 var require_id = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var def = {
@@ -4812,7 +4812,7 @@ var require_id = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/core/ref.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/core/ref.js
 var require_ref = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.callRef = exports.getValidate = undefined;
@@ -4931,7 +4931,7 @@ var require_ref = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/core/index.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/core/index.js
 var require_core2 = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var id_1 = require_id();
@@ -4949,7 +4949,7 @@ var require_core2 = __commonJS(function(exports) {
   exports.default = core2;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/validation/limitNumber.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/validation/limitNumber.js
 var require_limitNumber = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var codegen_1 = require_codegen();
@@ -4978,7 +4978,7 @@ var require_limitNumber = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/validation/multipleOf.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/validation/multipleOf.js
 var require_multipleOf = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var codegen_1 = require_codegen();
@@ -5003,7 +5003,7 @@ var require_multipleOf = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/runtime/ucs2length.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/runtime/ucs2length.js
 var require_ucs2length = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   function ucs2length(str) {
@@ -5026,7 +5026,7 @@ var require_ucs2length = __commonJS(function(exports) {
   ucs2length.code = 'require("ajv/dist/runtime/ucs2length").default';
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/validation/limitLength.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/validation/limitLength.js
 var require_limitLength = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var codegen_1 = require_codegen();
@@ -5055,7 +5055,7 @@ var require_limitLength = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/validation/pattern.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/validation/pattern.js
 var require_pattern = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var code_1 = require_code2();
@@ -5089,7 +5089,7 @@ var require_pattern = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/validation/limitProperties.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/validation/limitProperties.js
 var require_limitProperties = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var codegen_1 = require_codegen();
@@ -5115,7 +5115,7 @@ var require_limitProperties = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/validation/required.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/validation/required.js
 var require_required = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var code_1 = require_code2();
@@ -5194,7 +5194,7 @@ var require_required = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/validation/limitItems.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/validation/limitItems.js
 var require_limitItems = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var codegen_1 = require_codegen();
@@ -5220,7 +5220,7 @@ var require_limitItems = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/runtime/equal.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/runtime/equal.js
 var require_equal = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var equal = require_fast_deep_equal();
@@ -5228,7 +5228,7 @@ var require_equal = __commonJS(function(exports) {
   exports.default = equal;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/validation/uniqueItems.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/validation/uniqueItems.js
 var require_uniqueItems = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var dataType_1 = require_dataType();
@@ -5292,7 +5292,7 @@ var require_uniqueItems = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/validation/const.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/validation/const.js
 var require_const = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var codegen_1 = require_codegen();
@@ -5318,7 +5318,7 @@ var require_const = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/validation/enum.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/validation/enum.js
 var require_enum = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var codegen_1 = require_codegen();
@@ -5364,7 +5364,7 @@ var require_enum = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/validation/index.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/validation/index.js
 var require_validation = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var limitNumber_1 = require_limitNumber();
@@ -5394,7 +5394,7 @@ var require_validation = __commonJS(function(exports) {
   exports.default = validation;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/additionalItems.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/additionalItems.js
 var require_additionalItems = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.validateAdditionalItems = undefined;
@@ -5444,7 +5444,7 @@ var require_additionalItems = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/items.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/items.js
 var require_items = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.validateTuple = undefined;
@@ -5498,7 +5498,7 @@ var require_items = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/prefixItems.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/prefixItems.js
 var require_prefixItems = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var items_1 = require_items();
@@ -5512,7 +5512,7 @@ var require_prefixItems = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/items2020.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/items2020.js
 var require_items2020 = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var codegen_1 = require_codegen();
@@ -5544,7 +5544,7 @@ var require_items2020 = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/contains.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/contains.js
 var require_contains = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var codegen_1 = require_codegen();
@@ -5635,7 +5635,7 @@ var require_contains = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/dependencies.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/dependencies.js
 var require_dependencies = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.validateSchemaDeps = exports.validatePropertyDeps = exports.error = undefined;
@@ -5720,7 +5720,7 @@ var require_dependencies = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/propertyNames.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/propertyNames.js
 var require_propertyNames = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var codegen_1 = require_codegen();
@@ -5760,7 +5760,7 @@ var require_propertyNames = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js
 var require_additionalProperties = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var code_1 = require_code2();
@@ -5863,7 +5863,7 @@ var require_additionalProperties = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/properties.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/properties.js
 var require_properties = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var validate_1 = require_validate();
@@ -5918,7 +5918,7 @@ var require_properties = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/patternProperties.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/patternProperties.js
 var require_patternProperties = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var code_1 = require_code2();
@@ -5989,7 +5989,7 @@ var require_patternProperties = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/not.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/not.js
 var require_not = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var util_1 = require_util();
@@ -6017,7 +6017,7 @@ var require_not = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/anyOf.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/anyOf.js
 var require_anyOf = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var code_1 = require_code2();
@@ -6031,7 +6031,7 @@ var require_anyOf = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/oneOf.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/oneOf.js
 var require_oneOf = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var codegen_1 = require_codegen();
@@ -6086,7 +6086,7 @@ var require_oneOf = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/allOf.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/allOf.js
 var require_allOf = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var util_1 = require_util();
@@ -6110,7 +6110,7 @@ var require_allOf = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/if.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/if.js
 var require_if = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var codegen_1 = require_codegen();
@@ -6176,7 +6176,7 @@ var require_if = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/thenElse.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/thenElse.js
 var require_thenElse = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var util_1 = require_util();
@@ -6191,7 +6191,7 @@ var require_thenElse = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/index.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/applicator/index.js
 var require_applicator = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var additionalItems_1 = require_additionalItems();
@@ -6234,7 +6234,7 @@ var require_applicator = __commonJS(function(exports) {
   exports.default = getApplicator;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/format/format.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/format/format.js
 var require_format = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var codegen_1 = require_codegen();
@@ -6321,7 +6321,7 @@ var require_format = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/format/index.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/format/index.js
 var require_format2 = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var format_1 = require_format();
@@ -6329,7 +6329,7 @@ var require_format2 = __commonJS(function(exports) {
   exports.default = format;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/metadata.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/metadata.js
 var require_metadata = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.contentVocabulary = exports.metadataVocabulary = undefined;
@@ -6349,7 +6349,7 @@ var require_metadata = __commonJS(function(exports) {
   ];
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/draft7.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/draft7.js
 var require_draft7 = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var core_1 = require_core2();
@@ -6368,7 +6368,7 @@ var require_draft7 = __commonJS(function(exports) {
   exports.default = draft7Vocabularies;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/discriminator/types.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/discriminator/types.js
 var require_types = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.DiscrError = undefined;
@@ -6379,7 +6379,7 @@ var require_types = __commonJS(function(exports) {
   })(DiscrError || (exports.DiscrError = DiscrError = {}));
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/vocabularies/discriminator/index.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/vocabularies/discriminator/index.js
 var require_discriminator = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var codegen_1 = require_codegen();
@@ -6481,7 +6481,7 @@ var require_discriminator = __commonJS(function(exports) {
   exports.default = def;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/refs/json-schema-draft-07.json
+// ../../_temp/design-mcp/node_modules/ajv/dist/refs/json-schema-draft-07.json
 var require_json_schema_draft_07 = __commonJS(function(exports, module) {
   module.exports = {
     $schema: "http://json-schema.org/draft-07/schema#",
@@ -6636,7 +6636,7 @@ var require_json_schema_draft_07 = __commonJS(function(exports, module) {
   };
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv/dist/ajv.js
+// ../../_temp/design-mcp/node_modules/ajv/dist/ajv.js
 var require_ajv = __commonJS(function(exports, module) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.MissingRefError = exports.ValidationError = exports.CodeGen = exports.Name = exports.nil = exports.stringify = exports.str = exports._ = exports.KeywordCxt = exports.Ajv = undefined;
@@ -6704,7 +6704,7 @@ var require_ajv = __commonJS(function(exports, module) {
   } });
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv-formats/dist/formats.js
+// ../../_temp/design-mcp/node_modules/ajv-formats/dist/formats.js
 var require_formats = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.formatNames = exports.fastFormats = exports.fullFormats = undefined;
@@ -6881,7 +6881,7 @@ var require_formats = __commonJS(function(exports) {
   }
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv-formats/dist/limit.js
+// ../../_temp/design-mcp/node_modules/ajv-formats/dist/limit.js
 var require_limit = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.formatLimitDefinition = undefined;
@@ -6950,7 +6950,7 @@ var require_limit = __commonJS(function(exports) {
   exports.default = formatLimitPlugin;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/ajv-formats/dist/index.js
+// ../../_temp/design-mcp/node_modules/ajv-formats/dist/index.js
 var require_dist = __commonJS(function(exports, module) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var formats_1 = require_formats();
@@ -6989,7 +6989,7 @@ var require_dist = __commonJS(function(exports, module) {
   exports.default = formatsPlugin;
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/content-type/index.js
+// ../../_temp/design-mcp/node_modules/content-type/index.js
 var require_content_type = __commonJS(function(exports) {
   /*!
    * content-type
@@ -7095,13 +7095,13 @@ var require_content_type = __commonJS(function(exports) {
   }
 });
 
-// ../../../../../private/tmp/design-mcp/src/cli.ts
+// ../../_temp/design-mcp/src/cli.ts
 import { readFile } from "node:fs/promises";
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/server/stdio.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/server/stdio.js
 import process2 from "node:process";
 
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/classic/external.js
+// ../../_temp/design-mcp/node_modules/zod/v4/classic/external.js
 var exports_external = {};
 __export(exports_external, {
   $brand: () => $brand,
@@ -7331,7 +7331,7 @@ __export(exports_external, {
   xid: () => xid2
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/core/index.js
+// ../../_temp/design-mcp/node_modules/zod/v4/core/index.js
 var exports_core2 = {};
 __export(exports_core2, {
   $ZodAny: () => $ZodAny,
@@ -7595,7 +7595,7 @@ __export(exports_core2, {
   version: () => version
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/core/core.js
+// ../../_temp/design-mcp/node_modules/zod/v4/core/core.js
 var NEVER = Object.freeze({
   status: "aborted"
 });
@@ -7662,7 +7662,7 @@ function config(newConfig) {
     Object.assign(globalConfig, newConfig);
   return globalConfig;
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/core/util.js
+// ../../_temp/design-mcp/node_modules/zod/v4/core/util.js
 var exports_util = {};
 __export(exports_util, {
   BIGINT_FORMAT_RANGES: () => BIGINT_FORMAT_RANGES,
@@ -8289,7 +8289,7 @@ class Class {
   constructor(..._args) {}
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/core/errors.js
+// ../../_temp/design-mcp/node_modules/zod/v4/core/errors.js
 var initializer = (inst, def) => {
   inst.name = "$ZodError";
   Object.defineProperty(inst, "_zod", {
@@ -8432,7 +8432,7 @@ function prettifyError(error) {
 `);
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/core/parse.js
+// ../../_temp/design-mcp/node_modules/zod/v4/core/parse.js
 var _parse = (_Err) => (schema, value, _ctx, _params) => {
   const ctx = _ctx ? Object.assign(_ctx, { async: false }) : { async: false };
   const result = schema._zod.run({ value, issues: [] }, ctx);
@@ -8519,7 +8519,7 @@ var _safeDecodeAsync = (_Err) => async (schema, value, _ctx) => {
   return _safeParseAsync(_Err)(schema, value, _ctx);
 };
 var safeDecodeAsync = /* @__PURE__ */ _safeDecodeAsync($ZodRealError);
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/core/regexes.js
+// ../../_temp/design-mcp/node_modules/zod/v4/core/regexes.js
 var exports_regexes = {};
 __export(exports_regexes, {
   base64: () => base64,
@@ -8671,7 +8671,7 @@ var sha512_hex = /^[0-9a-fA-F]{128}$/;
 var sha512_base64 = /* @__PURE__ */ fixedBase64(86, "==");
 var sha512_base64url = /* @__PURE__ */ fixedBase64url(86);
 
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/core/checks.js
+// ../../_temp/design-mcp/node_modules/zod/v4/core/checks.js
 var $ZodCheck = /* @__PURE__ */ $constructor("$ZodCheck", (inst, def) => {
   var _a;
   inst._zod ?? (inst._zod = {});
@@ -9212,7 +9212,7 @@ var $ZodCheckOverwrite = /* @__PURE__ */ $constructor("$ZodCheckOverwrite", (ins
   };
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/core/doc.js
+// ../../_temp/design-mcp/node_modules/zod/v4/core/doc.js
 class Doc {
   constructor(args = []) {
     this.content = [];
@@ -9250,14 +9250,14 @@ class Doc {
   }
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/core/versions.js
+// ../../_temp/design-mcp/node_modules/zod/v4/core/versions.js
 var version = {
   major: 4,
   minor: 1,
   patch: 5
 };
 
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/core/schemas.js
+// ../../_temp/design-mcp/node_modules/zod/v4/core/schemas.js
 var $ZodType = /* @__PURE__ */ $constructor("$ZodType", (inst, def) => {
   var _a;
   inst ?? (inst = {});
@@ -11075,7 +11075,7 @@ function handleRefineResult(result, payload, input, inst) {
     payload.issues.push(issue(_iss));
   }
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/index.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/index.js
 var exports_locales = {};
 __export(exports_locales, {
   ar: () => ar_default,
@@ -11122,7 +11122,7 @@ __export(exports_locales, {
   zhTW: () => zh_TW_default
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/ar.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/ar.js
 var error = () => {
   const Sizable = {
     string: { unit: "حرف", verb: "أن يحوي" },
@@ -11238,7 +11238,7 @@ function ar_default() {
     localeError: error()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/az.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/az.js
 var error2 = () => {
   const Sizable = {
     string: { unit: "simvol", verb: "olmalıdır" },
@@ -11353,7 +11353,7 @@ function az_default() {
     localeError: error2()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/be.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/be.js
 function getBelarusianPlural(count, one, few, many) {
   const absCount = Math.abs(count);
   const lastDigit = absCount % 10;
@@ -11517,7 +11517,7 @@ function be_default() {
     localeError: error3()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/ca.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/ca.js
 var error4 = () => {
   const Sizable = {
     string: { unit: "caràcters", verb: "contenir" },
@@ -11634,7 +11634,7 @@ function ca_default() {
     localeError: error4()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/cs.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/cs.js
 var error5 = () => {
   const Sizable = {
     string: { unit: "znaků", verb: "mít" },
@@ -11769,7 +11769,7 @@ function cs_default() {
     localeError: error5()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/da.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/da.js
 var error6 = () => {
   const Sizable = {
     string: { unit: "tegn", verb: "havde" },
@@ -11900,7 +11900,7 @@ function da_default() {
     localeError: error6()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/de.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/de.js
 var error7 = () => {
   const Sizable = {
     string: { unit: "Zeichen", verb: "zu haben" },
@@ -12016,7 +12016,7 @@ function de_default() {
     localeError: error7()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/en.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/en.js
 var parsedType = (data) => {
   const t = typeof data;
   switch (t) {
@@ -12133,7 +12133,7 @@ function en_default() {
     localeError: error8()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/eo.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/eo.js
 var parsedType2 = (data) => {
   const t = typeof data;
   switch (t) {
@@ -12249,7 +12249,7 @@ function eo_default() {
     localeError: error9()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/es.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/es.js
 var error10 = () => {
   const Sizable = {
     string: { unit: "caracteres", verb: "tener" },
@@ -12365,7 +12365,7 @@ function es_default() {
     localeError: error10()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/fa.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/fa.js
 var error11 = () => {
   const Sizable = {
     string: { unit: "کاراکتر", verb: "داشته باشد" },
@@ -12487,7 +12487,7 @@ function fa_default() {
     localeError: error11()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/fi.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/fi.js
 var error12 = () => {
   const Sizable = {
     string: { unit: "merkkiä", subject: "merkkijonon" },
@@ -12609,7 +12609,7 @@ function fi_default() {
     localeError: error12()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/fr.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/fr.js
 var error13 = () => {
   const Sizable = {
     string: { unit: "caractères", verb: "avoir" },
@@ -12725,7 +12725,7 @@ function fr_default() {
     localeError: error13()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/fr-CA.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/fr-CA.js
 var error14 = () => {
   const Sizable = {
     string: { unit: "caractères", verb: "avoir" },
@@ -12842,7 +12842,7 @@ function fr_CA_default() {
     localeError: error14()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/he.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/he.js
 var error15 = () => {
   const Sizable = {
     string: { unit: "אותיות", verb: "לכלול" },
@@ -12958,7 +12958,7 @@ function he_default() {
     localeError: error15()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/hu.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/hu.js
 var error16 = () => {
   const Sizable = {
     string: { unit: "karakter", verb: "legyen" },
@@ -13074,7 +13074,7 @@ function hu_default() {
     localeError: error16()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/id.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/id.js
 var error17 = () => {
   const Sizable = {
     string: { unit: "karakter", verb: "memiliki" },
@@ -13190,7 +13190,7 @@ function id_default() {
     localeError: error17()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/is.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/is.js
 var parsedType3 = (data) => {
   const t = typeof data;
   switch (t) {
@@ -13307,7 +13307,7 @@ function is_default() {
     localeError: error18()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/it.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/it.js
 var error19 = () => {
   const Sizable = {
     string: { unit: "caratteri", verb: "avere" },
@@ -13423,7 +13423,7 @@ function it_default() {
     localeError: error19()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/ja.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/ja.js
 var error20 = () => {
   const Sizable = {
     string: { unit: "文字", verb: "である" },
@@ -13538,7 +13538,7 @@ function ja_default() {
     localeError: error20()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/kh.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/kh.js
 var error21 = () => {
   const Sizable = {
     string: { unit: "តួអក្សរ", verb: "គួរមាន" },
@@ -13655,7 +13655,7 @@ function kh_default() {
     localeError: error21()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/ko.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/ko.js
 var error22 = () => {
   const Sizable = {
     string: { unit: "문자", verb: "to have" },
@@ -13776,7 +13776,7 @@ function ko_default() {
     localeError: error22()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/mk.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/mk.js
 var error23 = () => {
   const Sizable = {
     string: { unit: "знаци", verb: "да имаат" },
@@ -13893,7 +13893,7 @@ function mk_default() {
     localeError: error23()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/ms.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/ms.js
 var error24 = () => {
   const Sizable = {
     string: { unit: "aksara", verb: "mempunyai" },
@@ -14009,7 +14009,7 @@ function ms_default() {
     localeError: error24()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/nl.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/nl.js
 var error25 = () => {
   const Sizable = {
     string: { unit: "tekens" },
@@ -14126,7 +14126,7 @@ function nl_default() {
     localeError: error25()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/no.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/no.js
 var error26 = () => {
   const Sizable = {
     string: { unit: "tegn", verb: "å ha" },
@@ -14242,7 +14242,7 @@ function no_default() {
     localeError: error26()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/ota.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/ota.js
 var error27 = () => {
   const Sizable = {
     string: { unit: "harf", verb: "olmalıdır" },
@@ -14358,7 +14358,7 @@ function ota_default() {
     localeError: error27()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/ps.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/ps.js
 var error28 = () => {
   const Sizable = {
     string: { unit: "توکي", verb: "ولري" },
@@ -14480,7 +14480,7 @@ function ps_default() {
     localeError: error28()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/pl.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/pl.js
 var error29 = () => {
   const Sizable = {
     string: { unit: "znaków", verb: "mieć" },
@@ -14597,7 +14597,7 @@ function pl_default() {
     localeError: error29()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/pt.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/pt.js
 var error30 = () => {
   const Sizable = {
     string: { unit: "caracteres", verb: "ter" },
@@ -14713,7 +14713,7 @@ function pt_default() {
     localeError: error30()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/ru.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/ru.js
 function getRussianPlural(count, one, few, many) {
   const absCount = Math.abs(count);
   const lastDigit = absCount % 10;
@@ -14877,7 +14877,7 @@ function ru_default() {
     localeError: error31()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/sl.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/sl.js
 var error32 = () => {
   const Sizable = {
     string: { unit: "znakov", verb: "imeti" },
@@ -14994,7 +14994,7 @@ function sl_default() {
     localeError: error32()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/sv.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/sv.js
 var error33 = () => {
   const Sizable = {
     string: { unit: "tecken", verb: "att ha" },
@@ -15112,7 +15112,7 @@ function sv_default() {
     localeError: error33()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/ta.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/ta.js
 var error34 = () => {
   const Sizable = {
     string: { unit: "எழுத்துக்கள்", verb: "கொண்டிருக்க வேண்டும்" },
@@ -15229,7 +15229,7 @@ function ta_default() {
     localeError: error34()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/th.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/th.js
 var error35 = () => {
   const Sizable = {
     string: { unit: "ตัวอักษร", verb: "ควรมี" },
@@ -15346,7 +15346,7 @@ function th_default() {
     localeError: error35()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/tr.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/tr.js
 var parsedType4 = (data) => {
   const t = typeof data;
   switch (t) {
@@ -15461,7 +15461,7 @@ function tr_default() {
     localeError: error36()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/ua.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/ua.js
 var error37 = () => {
   const Sizable = {
     string: { unit: "символів", verb: "матиме" },
@@ -15577,7 +15577,7 @@ function ua_default() {
     localeError: error37()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/ur.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/ur.js
 var error38 = () => {
   const Sizable = {
     string: { unit: "حروف", verb: "ہونا" },
@@ -15694,7 +15694,7 @@ function ur_default() {
     localeError: error38()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/vi.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/vi.js
 var error39 = () => {
   const Sizable = {
     string: { unit: "ký tự", verb: "có" },
@@ -15810,7 +15810,7 @@ function vi_default() {
     localeError: error39()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/zh-CN.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/zh-CN.js
 var error40 = () => {
   const Sizable = {
     string: { unit: "字符", verb: "包含" },
@@ -15926,7 +15926,7 @@ function zh_CN_default() {
     localeError: error40()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/zh-TW.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/zh-TW.js
 var error41 = () => {
   const Sizable = {
     string: { unit: "字元", verb: "擁有" },
@@ -16043,7 +16043,7 @@ function zh_TW_default() {
     localeError: error41()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/locales/yo.js
+// ../../_temp/design-mcp/node_modules/zod/v4/locales/yo.js
 var error42 = () => {
   const Sizable = {
     string: { unit: "àmi", verb: "ní" },
@@ -16158,7 +16158,7 @@ function yo_default() {
     localeError: error42()
   };
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/core/registries.js
+// ../../_temp/design-mcp/node_modules/zod/v4/core/registries.js
 var $output = Symbol("ZodOutput");
 var $input = Symbol("ZodInput");
 
@@ -16209,7 +16209,7 @@ function registry() {
   return new $ZodRegistry;
 }
 var globalRegistry = /* @__PURE__ */ registry();
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/core/api.js
+// ../../_temp/design-mcp/node_modules/zod/v4/core/api.js
 function _string(Class2, params) {
   return new Class2({
     type: "string",
@@ -17087,7 +17087,7 @@ function _stringFormat(Class2, format, fnOrRegex, _params = {}) {
   const inst = new Class2(def);
   return inst;
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/core/to-json-schema.js
+// ../../_temp/design-mcp/node_modules/zod/v4/core/to-json-schema.js
 class JSONSchemaGenerator {
   constructor(params) {
     this.counter = 0;
@@ -17891,9 +17891,9 @@ function isTransforming(_schema, _ctx) {
   }
   throw new Error(`Unknown schema type: ${def.type}`);
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/core/json-schema.js
+// ../../_temp/design-mcp/node_modules/zod/v4/core/json-schema.js
 var exports_json_schema = {};
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/classic/iso.js
+// ../../_temp/design-mcp/node_modules/zod/v4/classic/iso.js
 var exports_iso = {};
 __export(exports_iso, {
   ZodISODate: () => ZodISODate,
@@ -17934,7 +17934,7 @@ function duration2(params) {
   return _isoDuration(ZodISODuration, params);
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/classic/errors.js
+// ../../_temp/design-mcp/node_modules/zod/v4/classic/errors.js
 var initializer2 = (inst, issues) => {
   $ZodError.init(inst, issues);
   inst.name = "ZodError";
@@ -17969,7 +17969,7 @@ var ZodRealError = $constructor("ZodError", initializer2, {
   Parent: Error
 });
 
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/classic/parse.js
+// ../../_temp/design-mcp/node_modules/zod/v4/classic/parse.js
 var parse3 = /* @__PURE__ */ _parse(ZodRealError);
 var parseAsync2 = /* @__PURE__ */ _parseAsync(ZodRealError);
 var safeParse2 = /* @__PURE__ */ _safeParse(ZodRealError);
@@ -17983,7 +17983,7 @@ var safeDecode2 = /* @__PURE__ */ _safeDecode(ZodRealError);
 var safeEncodeAsync2 = /* @__PURE__ */ _safeEncodeAsync(ZodRealError);
 var safeDecodeAsync2 = /* @__PURE__ */ _safeDecodeAsync(ZodRealError);
 
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/classic/schemas.js
+// ../../_temp/design-mcp/node_modules/zod/v4/classic/schemas.js
 var ZodType = /* @__PURE__ */ $constructor("ZodType", (inst, def) => {
   $ZodType.init(inst, def);
   inst.def = def;
@@ -18958,7 +18958,7 @@ function json(params) {
 function preprocess(fn, schema) {
   return pipe(transform(fn), schema);
 }
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/classic/compat.js
+// ../../_temp/design-mcp/node_modules/zod/v4/classic/compat.js
 var ZodIssueCode = {
   invalid_type: "invalid_type",
   too_big: "too_big",
@@ -18982,7 +18982,7 @@ function getErrorMap() {
 }
 var ZodFirstPartyTypeKind;
 (function(ZodFirstPartyTypeKind2) {})(ZodFirstPartyTypeKind || (ZodFirstPartyTypeKind = {}));
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/classic/coerce.js
+// ../../_temp/design-mcp/node_modules/zod/v4/classic/coerce.js
 var exports_coerce = {};
 __export(exports_coerce, {
   bigint: () => bigint3,
@@ -19007,10 +19007,10 @@ function date4(params) {
   return _coercedDate(ZodDate, params);
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/zod/v4/classic/external.js
+// ../../_temp/design-mcp/node_modules/zod/v4/classic/external.js
 config(en_default());
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/types.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/types.js
 var LATEST_PROTOCOL_VERSION = "2025-11-25";
 var SUPPORTED_PROTOCOL_VERSIONS = [LATEST_PROTOCOL_VERSION, "2025-06-18", "2025-03-26", "2024-11-05", "2024-10-07"];
 var RELATED_TASK_META_KEY = "io.modelcontextprotocol/related-task";
@@ -19846,7 +19846,7 @@ class UrlElicitationRequiredError extends McpError {
   }
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/stdio.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/stdio.js
 var STDIO_DEFAULT_MAX_BUFFER_SIZE = 10 * 1024 * 1024;
 
 class ReadBuffer {
@@ -19886,7 +19886,7 @@ function serializeMessage(message) {
 `;
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/server/stdio.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/server/stdio.js
 class StdioServerTransport {
   constructor(_stdin = process2.stdin, _stdout = process2.stdout, options) {
     this._stdin = _stdin;
@@ -19948,7 +19948,7 @@ class StdioServerTransport {
     });
   }
 }
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/server/zod-compat.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/server/zod-compat.js
 function isZ4Schema(s) {
   const schema = s;
   return !!schema._zod;
@@ -20011,16 +20011,16 @@ function getLiteralValue(schema) {
   return;
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/interfaces.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/interfaces.js
 function isTerminal(status) {
   return status === "completed" || status === "failed" || status === "cancelled";
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/zod-to-json-schema/dist/esm/Options.js
+// ../../_temp/design-mcp/node_modules/zod-to-json-schema/dist/esm/Options.js
 var ignoreOverride = Symbol("Let zodToJsonSchema decide on which parser to use");
-// ../../../../../private/tmp/design-mcp/node_modules/zod-to-json-schema/dist/esm/parsers/string.js
+// ../../_temp/design-mcp/node_modules/zod-to-json-schema/dist/esm/parsers/string.js
 var ALPHA_NUMERIC = new Set("ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvxyz0123456789");
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/server/zod-json-schema-compat.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/server/zod-json-schema-compat.js
 function getMethodLiteral(schema) {
   const shape = getObjectShape(schema);
   const methodSchema = shape?.method;
@@ -20041,7 +20041,7 @@ function parseWithCompat(schema, data) {
   return result.data;
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/protocol.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/protocol.js
 var DEFAULT_REQUEST_TIMEOUT_MSEC = 60000;
 
 class Protocol {
@@ -20904,7 +20904,7 @@ function mergeCapabilities(base, additional) {
   return result;
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/validation/ajv-provider.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/validation/ajv-provider.js
 var import_ajv = __toESM(require_ajv(), 1);
 var import_ajv_formats = __toESM(require_dist(), 1);
 function createDefaultAjvInstance() {
@@ -20944,7 +20944,7 @@ class AjvJsonSchemaValidator {
   }
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/client.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/client.js
 class ExperimentalClientTasks {
   constructor(_client) {
     this._client = _client;
@@ -21010,7 +21010,7 @@ class ExperimentalClientTasks {
   }
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/helpers.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/helpers.js
 function assertToolsCallTaskCapability(requests, method, entityName) {
   if (!requests) {
     throw new Error(`${entityName} does not support task creation (required for ${method})`);
@@ -21045,7 +21045,7 @@ function assertClientRequestTaskCapability(requests, method, entityName) {
   }
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/client/index.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/client/index.js
 function applyElicitationDefaults(schema, data) {
   if (!schema || data === null || typeof data !== "object")
     return;
@@ -21503,7 +21503,7 @@ class Client extends Protocol {
   }
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/mediaType.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/mediaType.js
 var import_content_type = __toESM(require_content_type(), 1);
 function mediaTypeEssence(header) {
   if (!header) {
@@ -21520,7 +21520,7 @@ function mediaTypeEssence(header) {
   }
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/transport.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/transport.js
 function normalizeHeaders(headers) {
   if (!headers)
     return {};
@@ -21608,7 +21608,7 @@ function unfollowedRedirect(response, requestUrl) {
   return `Redirect to ${target.href} not followed`;
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/pkce-challenge/dist/index.node.js
+// ../../_temp/design-mcp/node_modules/pkce-challenge/dist/index.node.js
 var crypto;
 crypto = globalThis.crypto?.webcrypto ?? globalThis.crypto ?? import("node:crypto").then((m) => m.webcrypto);
 async function getRandomValues(size) {
@@ -21649,7 +21649,7 @@ async function pkceChallenge(length) {
   };
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/auth.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/auth.js
 var SafeUrlSchema = url().superRefine((val, ctx) => {
   if (!URL.canParse(val)) {
     ctx.addIssue({
@@ -21796,7 +21796,7 @@ var OAuthTokenRevocationRequestSchema = object({
   token_type_hint: string2().optional()
 }).strip();
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/auth-utils.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/auth-utils.js
 function resourceUrlFromServerUrl(url2) {
   const resourceURL = typeof url2 === "string" ? new URL(url2) : new URL(url2.href);
   resourceURL.hash = "";
@@ -21816,7 +21816,7 @@ function checkResourceAllowed({ requestedResource, configuredResource }) {
   return requestedPath.startsWith(configuredPath);
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/server/auth/errors.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/server/auth/errors.js
 class OAuthError extends Error {
   constructor(message, errorUri) {
     super(message);
@@ -21925,7 +21925,7 @@ var OAUTH_ERRORS = {
   [InvalidTargetError.errorCode]: InvalidTargetError
 };
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/client/auth.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/client/auth.js
 class UnauthorizedError extends Error {
   constructor(message) {
     super(message ?? "Unauthorized");
@@ -22511,7 +22511,7 @@ async function registerClient(authorizationServerUrl, { metadata, clientMetadata
   return RegistrationResponseSchema.parse(await response.json());
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/eventsource-parser/dist/index.js
+// ../../_temp/design-mcp/node_modules/eventsource-parser/dist/index.js
 class ParseError extends Error {
   constructor(message, options) {
     super(message), this.name = "ParseError", this.type = options.type, this.field = options.field, this.value = options.value, this.line = options.line;
@@ -22671,7 +22671,7 @@ function isEventPrefix(chunk, i, firstCharCode) {
   return firstCharCode === 101 && chunk.charCodeAt(i + 1) === 118 && chunk.charCodeAt(i + 2) === 101 && chunk.charCodeAt(i + 3) === 110 && chunk.charCodeAt(i + 4) === 116 && chunk.charCodeAt(i + 5) === 58;
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/eventsource-parser/dist/stream.js
+// ../../_temp/design-mcp/node_modules/eventsource-parser/dist/stream.js
 class EventSourceParserStream extends TransformStream {
   constructor({ onError, onRetry, onComment, maxBufferSize } = {}) {
     let parser;
@@ -22696,7 +22696,7 @@ class EventSourceParserStream extends TransformStream {
   }
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/client/streamableHttp.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/client/streamableHttp.js
 var DEFAULT_STREAMABLE_HTTP_RECONNECTION_OPTIONS = {
   initialReconnectionDelay: 1000,
   maxReconnectionDelay: 30000,
@@ -23073,7 +23073,7 @@ class StreamableHTTPClientTransport {
   }
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/server.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/server.js
 class ExperimentalServerTasks {
   constructor(_server) {
     this._server = _server;
@@ -23151,7 +23151,7 @@ class ExperimentalServerTasks {
   }
 }
 
-// ../../../../../private/tmp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/server/index.js
+// ../../_temp/design-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/server/index.js
 class Server extends Protocol {
   constructor(_serverInfo, options) {
     super(options);
@@ -23474,7 +23474,7 @@ class Server extends Protocol {
     return this.notification({ method: "notifications/prompts/list_changed" });
   }
 }
-// ../../../../../private/tmp/design-mcp/src/tools.json
+// ../../_temp/design-mcp/src/tools.json
 var tools_default = {
   instructions: `Kiteways Design: you draw and change design files that live on the cloud. A person may be looking at the same file; your changes reach them as you make them.
 Every call names its file with \`fileId\`. There is no current file, page or selection: what the person has on screen never decides where you write. Get ids from design_list_files and design_get_context, then keep using those ids.
@@ -25177,7 +25177,7 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
   ]
 };
 
-// ../../../../../private/tmp/design-mcp/src/bridge.ts
+// ../../_temp/design-mcp/src/bridge.ts
 var ENDPOINT = "/mcp";
 var Discovery = exports_external.object({
   port: exports_external.number().int().positive().max(65535),
@@ -25300,7 +25300,7 @@ function createBridgeServer(bridge) {
   return server;
 }
 
-// ../../../../../private/tmp/design-mcp/src/discovery.ts
+// ../../_temp/design-mcp/src/discovery.ts
 import { existsSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
@@ -25337,7 +25337,7 @@ function defaultPaths() {
   return names.map((name) => join(root, name, "mcp.json"));
 }
 
-// ../../../../../private/tmp/design-mcp/src/cli.ts
+// ../../_temp/design-mcp/src/cli.ts
 async function main() {
   let path;
   try {
