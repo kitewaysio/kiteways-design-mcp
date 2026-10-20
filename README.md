@@ -1,6 +1,6 @@
 # Kiteways Design for coding agents
 
-This program connects Cursor, Claude, Codex, and any other MCP client to the Kiteways Design app running on the same computer. The tools are the app's tools. This program does not keep a second copy of a file.
+This program connects Cursor, Claude, Codex, and any other MCP client to the Kiteways Design app on the same computer. The agent reads and edits the design file in that app. It does not keep a second copy.
 
 The app must be open and you must be signed in. Each launch of the app picks its own local port and token. This program reads that address from the app's discovery file, then speaks MCP on standard input and output.
 
@@ -79,3 +79,7 @@ Ask the agent to design in a Kiteways file. It lists the files you can open, rea
 If the app is closed, or you are signed out, the call fails and nothing is written. Open the app and try again.
 
 The tool list comes from the running app, so it matches the version you have installed.
+
+## What is in this repository
+
+`dist/cli.js` is the program the install command runs. It is committed so an agent does not have to build it. `src` is the source of that program. `bun.lock` pins the packages used to produce `dist`. `node_modules` is not committed.

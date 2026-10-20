@@ -2,7 +2,7 @@
   "name": "kiteways-design",
   "displayName": "Kiteways Design",
   "version": "0.7.4",
-  "description": "Design in the open Kiteways file from Cursor. The Kiteways Design app must be open and signed in.",
+  "description": "Edit Kiteways design files from Cursor. The agent uses the design system in the file. Kiteways Design must be open and signed in on this computer.",
   "author": {
     "name": "Kiteways",
     "email": "dev@kiteways.com"
