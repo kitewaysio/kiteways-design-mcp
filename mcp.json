@@ -2,7 +2,7 @@
   "mcpServers": {
     "kiteways-design": {
       "command": "npx",
-      "args": ["-y", "github:kitewaysio/design-mcp"]
+      "args": ["-y", "github:kitewaysio/kiteways-design-mcp"]
     }
   }
 }

@@ -18,7 +18,7 @@ Add this to `~/.cursor/mcp.json`, or to `.cursor/mcp.json` in one project:
   "mcpServers": {
     "kiteways-design": {
       "command": "npx",
-      "args": ["-y", "github:kitewaysio/design-mcp"]
+      "args": ["-y", "github:kitewaysio/kiteways-design-mcp"]
     }
   }
 }
@@ -29,7 +29,7 @@ Reload Cursor. The server is named `kiteways-design`.
 ## Claude Code
 
 ```bash
-claude mcp add kiteways-design -- npx -y github:kitewaysio/design-mcp
+claude mcp add kiteways-design -- npx -y github:kitewaysio/kiteways-design-mcp
 ```
 
 ## Claude Desktop
@@ -43,7 +43,7 @@ In `~/.codex/config.toml`:
 ```toml
 [mcp_servers.kiteways-design]
 command = "npx"
-args = ["-y", "github:kitewaysio/design-mcp"]
+args = ["-y", "github:kitewaysio/kiteways-design-mcp"]
 ```
 
 ## Any other MCP client
@@ -51,7 +51,7 @@ args = ["-y", "github:kitewaysio/design-mcp"]
 Start this command and speak MCP on its standard input and output:
 
 ```bash
-npx -y github:kitewaysio/design-mcp
+npx -y github:kitewaysio/kiteways-design-mcp
 ```
 
 ## Where the app is found
@@ -67,7 +67,7 @@ The app writes `mcp.json` when it starts and removes it when it quits. This prog
 The trial build uses `Kiteways Design Trial` in that same path. To point at a different file:
 
 ```bash
-npx -y github:kitewaysio/design-mcp --discovery "/path/to/mcp.json"
+npx -y github:kitewaysio/kiteways-design-mcp --discovery "/path/to/mcp.json"
 ```
 
 or set `KITEWAYS_DESIGN_MCP_DISCOVERY` to that path.
