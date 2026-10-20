@@ -58,11 +58,11 @@ npx -y github:kitewaysio/design-mcp
 
 The app writes `mcp.json` when it starts and removes it when it quits. This program looks in these places, and uses the first file that exists:
 
-| System | Path |
-| --- | --- |
-| Mac | `~/Library/Application Support/Kiteways Design/mcp.json` |
-| Windows | `%APPDATA%\Kiteways Design\mcp.json` |
-| Linux | `~/.config/Kiteways Design/mcp.json` |
+| System  | Path                                                     |
+| ------- | -------------------------------------------------------- |
+| Mac     | `~/Library/Application Support/Kiteways Design/mcp.json` |
+| Windows | `%APPDATA%\Kiteways Design\mcp.json`                     |
+| Linux   | `~/.config/Kiteways Design/mcp.json`                     |
 
 The trial build uses `Kiteways Design Trial` in that same path. To point at a different file:
 
