@@ -1,0 +1,19 @@
+{
+  "name": "kiteways-design",
+  "displayName": "Kiteways Design",
+  "version": "0.7.4",
+  "description": "Design in the open Kiteways file from Cursor. The Kiteways Design app must be open and signed in.",
+  "author": {
+    "name": "Kiteways",
+    "email": "dev@kiteways.com"
+  },
+  "homepage": "https://kiteways.design",
+  "repository": "https://github.com/kitewaysio/design-mcp",
+  "license": "UNLICENSED",
+  "keywords": [
+    "design",
+    "mcp",
+    "kiteways"
+  ],
+  "logo": "assets/icon.svg"
+}

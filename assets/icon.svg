@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!--
+    The Kiteways Design app icon. macOS grid: a 1024 canvas, the plate 824 square in its middle
+    (so the Dock's own spacing is kept), corner radius 185. The mark is the product's own
+    (KitewaysMark): sixteen white squares in a cross, four blue corners, on the Void ground with
+    the canvas grid behind it. `make-icon.sh` turns this file into icon.icns.
+  -->
+  <defs>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#232323" />
+      <stop offset="1" stop-color="#0e0e0e" />
+    </linearGradient>
+    <clipPath id="plate">
+      <rect x="100" y="100" width="824" height="824" rx="185" />
+    </clipPath>
+    <filter id="lift" x="-10%" y="-10%" width="120%" height="124%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#000000" flood-opacity="0.35" />
+    </filter>
+  </defs>
+  <rect x="100" y="100" width="824" height="824" rx="185" fill="url(#ground)" filter="url(#lift)" />
+  <g clip-path="url(#plate)">
+    <g transform="translate(100 100) scale(1.7166667)">
+      <g stroke="#ffffff" stroke-opacity="0.06" stroke-width="1">
+      <line x1="60" y1="0" x2="60" y2="480" />
+      <line x1="120" y1="0" x2="120" y2="480" />
+      <line x1="180" y1="0" x2="180" y2="480" />
+      <line x1="240" y1="0" x2="240" y2="480" />
+      <line x1="300" y1="0" x2="300" y2="480" />
+      <line x1="360" y1="0" x2="360" y2="480" />
+      <line x1="420" y1="0" x2="420" y2="480" />
+      <line x1="0" y1="60" x2="480" y2="60" />
+      <line x1="0" y1="120" x2="480" y2="120" />
+      <line x1="0" y1="180" x2="480" y2="180" />
+      <line x1="0" y1="240" x2="480" y2="240" />
+      <line x1="0" y1="300" x2="480" y2="300" />
+      <line x1="0" y1="360" x2="480" y2="360" />
+      <line x1="0" y1="420" x2="480" y2="420" />
+      </g>
+      <g fill="#ffffff">
+      <rect x="185" y="65" width="50" height="50" rx="14" />
+      <rect x="245" y="65" width="50" height="50" rx="14" />
+      <rect x="185" y="125" width="50" height="50" rx="14" />
+      <rect x="245" y="125" width="50" height="50" rx="14" />
+      <rect x="185" y="305" width="50" height="50" rx="14" />
+      <rect x="245" y="305" width="50" height="50" rx="14" />
+      <rect x="185" y="365" width="50" height="50" rx="14" />
+      <rect x="245" y="365" width="50" height="50" rx="14" />
+      <rect x="65" y="185" width="50" height="50" rx="14" />
+      <rect x="125" y="185" width="50" height="50" rx="14" />
+      <rect x="65" y="245" width="50" height="50" rx="14" />
+      <rect x="125" y="245" width="50" height="50" rx="14" />
+      <rect x="305" y="185" width="50" height="50" rx="14" />
+      <rect x="365" y="185" width="50" height="50" rx="14" />
+      <rect x="305" y="245" width="50" height="50" rx="14" />
+      <rect x="365" y="245" width="50" height="50" rx="14" />
+      </g>
+      <g fill="#5fa3ff">
+      <rect x="125" y="125" width="50" height="50" rx="14" />
+      <rect x="305" y="125" width="50" height="50" rx="14" />
+      <rect x="125" y="305" width="50" height="50" rx="14" />
+      <rect x="305" y="305" width="50" height="50" rx="14" />
+      </g>
+    </g>
+  </g>
+  <rect x="101" y="101" width="822" height="822" rx="184" fill="none" stroke="#ffffff" stroke-opacity="0.1" stroke-width="2" />
+</svg>

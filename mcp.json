@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "kiteways-design": {
+      "command": "npx",
+      "args": ["-y", "github:kitewaysio/design-mcp"]
+    }
+  }
+}

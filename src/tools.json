@@ -1,0 +1,1695 @@
+{
+  "instructions": "Kiteways Design: you draw and change design files that live on the cloud. A person may be looking at the same file; your changes reach them as you make them.\nEvery call names its file with `fileId`. There is no current file, page or selection: what the person has on screen never decides where you write. Get ids from design_list_files and design_get_context, then keep using those ids.\nEvery write names its place: the parent you create under, the layer you change. To make an artboard, name the page it goes on. A new artboard is placed for you in free room; do not set its left and top.\nA write answers with `sync`: \"saved\" means the server has it; \"saving\" or \"offline\" means it is kept and will be sent; an error means it was refused and taken back.\nWork in small steps (one visual group per design_write) and read the outline of a place before writing into it.\nCall design_get_context first. designSystem.next is \"tokens\" or \"artboards\". When it is \"tokens\", Colour, Type, Spacing, Radius, Shadow or Border is missing or empty. Create each of those collections with design_tokens_set, at least one token in each, before any artboard or design_write. When it is \"artboards\", every colour, type (family, size, line height, weight, tracking), spacing, radius, border width and shadow is a var(--token) from those collections. The words of a text layer are yours to write. Its type is not.\ndesign_lint is for you, not the person. Never quote its findings. Read tokenChoices and use one of those tokens. Add a new token only when none of them is the value you need: design_tokens_set answers with the existing tokens and keeps the batch back until you repeat the create with confirmNeeded: true. Then use the new token. design_render is only after design_lint has nothing left, and only for what a rule cannot see.",
+  "tools": [
+    {
+      "name": "design_list_files",
+      "description": "The design files you can work on and the projects they live in, with their ids, and what the person has in front of them right now (which file, which page, what is selected). That last part is information: it changes whenever the person looks elsewhere, and nothing you write goes by it. Read the ids once, then name them in every call.",
+      "inputSchema": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "maxLength": 200
+          }
+        }
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "design_create_file",
+      "description": "Make a new, empty design file in a project (name the project by its id, from design_list_files). Answers with the new file`s id: pass it as `fileId` from then on. The file starts with no page: make one with design_edit_batch.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 400
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        },
+        "required": [
+          "projectId",
+          "name"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false
+      }
+    },
+    {
+      "name": "design_get_context",
+      "description": "Start here. designSystem.next is \"tokens\" when Colour, Type, Spacing, Radius, Shadow or Border is missing or empty: create those with design_tokens_set before any artboard. It is \"artboards\" when the system is ready. Also the pages and how styles use tokens. Components and code generation are paused.",
+      "inputSchema": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The design file this call is for. Required on every call: there is no current file."
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
+          }
+        },
+        "required": [
+          "fileId"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "design_read_outline",
+      "description": "The tree under one node (`rootId`: a page, an artboard or a layer): id, kind, name and tag of each layer, `depth` levels down (4 by default; 0 is the node alone) and at most `maxNodes` layers (300 by default), upper levels first. A layer whose inside is not listed has `childCount`: read it as `rootId` for more. Read this before writing into a place, to be sure of what is there.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The design file this call is for. Required on every call: there is no current file."
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
+          },
+          "rootId": {
+            "description": "The page, artboard or layer whose tree is read.",
+            "type": "string"
+          },
+          "depth": {
+            "description": "How many levels below rootId to list: 0 is rootId alone, 1 adds its children. 4 when not given; 200 at most.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "maxNodes": {
+            "description": "The most layers listed, 300 when not given. Upper levels are listed first; a layer's children are listed all together or not at all.",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5000
+          }
+        },
+        "required": [
+          "fileId",
+          "rootId"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "design_edit_batch",
+      "description": "Change the file: an ordered list of operations (create, setStyle, setText, setName, move, duplicate, delete, instantiate, proposeStyle) applied as ONE step. All of it lands or none does, and it is one undo. Every operation is strict: an unknown field fails the batch and names the field. `create` names its parent: a page has no parent (leave `parentId` out), an artboard goes under a page, everything else inside an artboard; `styles` on create are applied as it is made. Colour, type, spacing, radius, border width and shadow are var(--token) from the design system. If design_get_context says designSystem.next is \"tokens\", create the tokens first and do not draw. `index` (0-based among the new parent's children) places what is made, moved or duplicated; `order` is the raw key instead. `duplicate` copies a layer or artboard with everything inside it under new ids and answers with the copy's id. Style names may be camelCase or kebab-case. A node made earlier in the batch is addressed as `@ref`. Leave `left` and `top` off a new artboard: it is placed in free room on its page; a place known to cover another artboard is refused, judged after the whole batch (a height that follows the content counts only from its top).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The design file this call is for. Required on every call: there is no current file."
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
+          },
+          "operations": {
+            "description": "Applied in order as one step. Every operation is strict: an unknown field fails the whole batch and names the field.",
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "create"
+                    },
+                    "parentId": {
+                      "description": "Where it goes. A page has no parent: leave parentId out (or null) for kind \"page\". An artboard goes under a page; everything else inside an artboard or a layer in one.",
+                      "anyOf": [
+                        {
+                          "description": "A node id, or `@ref` of a node made earlier in this batch.",
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "kind": {
+                      "type": "string",
+                      "enum": [
+                        "page",
+                        "artboard",
+                        "element",
+                        "text",
+                        "instance"
+                      ]
+                    },
+                    "tag": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "styles": {
+                      "description": "Styles applied as the node is made (base breakpoint, default state), as `setStyle` would: `{ \"width\": \"390px\", \"background-color\": \"var(--surface)\" }`. An artboard placed in free room is placed knowing this size.",
+                      "allOf": [
+                        {
+                          "type": "object",
+                          "propertyNames": {
+                            "description": "A CSS property: camelCase (`backgroundColor`) or kebab-case (`background-color`), both stored as camelCase; `-webkit-x` is `WebkitX`; a custom property (`--brand`) is kept as written.",
+                            "type": "string",
+                            "pattern": "^(?:--[A-Za-z0-9_-]+|-?[A-Za-z][A-Za-z0-9-]*)$"
+                          },
+                          "additionalProperties": {
+                            "description": "A CSS value: `16px`, `#fff`, `var(--token)`, `auto`.",
+                            "type": "string"
+                          }
+                        },
+                        {}
+                      ]
+                    },
+                    "index": {
+                      "description": "0-based position among the new parent's children once the operation is done: 0 is first, the number of other children is last. Give `index` or `order`, not both; with neither the node goes last.",
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "order": {
+                      "description": "Raw sibling order key (a fractional index such as \"a0\"; siblings sort by it as plain strings). Prefer `index`; give `index` or `order`, not both.",
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "ref": {
+                      "description": "A name for what this operation makes: later operations target it as `@name`.",
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "kind"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "setStyle"
+                    },
+                    "target": {
+                      "description": "A node id, or `@ref` of a node made earlier in this batch.",
+                      "type": "string"
+                    },
+                    "breakpoint": {
+                      "default": "base",
+                      "type": "string"
+                    },
+                    "state": {
+                      "default": "default",
+                      "type": "string"
+                    },
+                    "property": {
+                      "description": "A CSS property: camelCase (`backgroundColor`) or kebab-case (`background-color`), both stored as camelCase; `-webkit-x` is `WebkitX`; a custom property (`--brand`) is kept as written.",
+                      "type": "string",
+                      "pattern": "^(?:--[A-Za-z0-9_-]+|-?[A-Za-z][A-Za-z0-9-]*)$"
+                    },
+                    "value": {
+                      "description": "A CSS value: `16px`, `#fff`, `var(--token)`, `auto`.",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "target",
+                    "property",
+                    "value"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "instantiate"
+                    },
+                    "parentId": {
+                      "anyOf": [
+                        {
+                          "description": "A node id, or `@ref` of a node made earlier in this batch.",
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "componentId": {
+                      "type": "string"
+                    },
+                    "props": {
+                      "type": "object",
+                      "propertyNames": {
+                        "type": "string"
+                      },
+                      "additionalProperties": {}
+                    },
+                    "index": {
+                      "description": "0-based position among the new parent's children once the operation is done: 0 is first, the number of other children is last. Give `index` or `order`, not both; with neither the node goes last.",
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "order": {
+                      "description": "Raw sibling order key (a fractional index such as \"a0\"; siblings sort by it as plain strings). Prefer `index`; give `index` or `order`, not both.",
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "ref": {
+                      "description": "A name for what this operation makes: later operations target it as `@name`.",
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "parentId",
+                    "componentId"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "proposeStyle"
+                    },
+                    "target": {
+                      "description": "A node id, or `@ref` of a node made earlier in this batch.",
+                      "type": "string"
+                    },
+                    "breakpoint": {
+                      "default": "base",
+                      "type": "string"
+                    },
+                    "state": {
+                      "default": "default",
+                      "type": "string"
+                    },
+                    "property": {
+                      "description": "A CSS property: camelCase (`backgroundColor`) or kebab-case (`background-color`), both stored as camelCase; `-webkit-x` is `WebkitX`; a custom property (`--brand`) is kept as written.",
+                      "type": "string",
+                      "pattern": "^(?:--[A-Za-z0-9_-]+|-?[A-Za-z][A-Za-z0-9-]*)$"
+                    },
+                    "value": {
+                      "description": "A CSS value: `16px`, `#fff`, `var(--token)`, `auto`.",
+                      "type": "string"
+                    },
+                    "rationale": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "target",
+                    "property",
+                    "value",
+                    "rationale"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "resolveFixRequest"
+                    },
+                    "target": {
+                      "description": "A node id, or `@ref` of a node made earlier in this batch.",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "target",
+                    "requestId"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "setText"
+                    },
+                    "target": {
+                      "description": "A node id, or `@ref` of a node made earlier in this batch.",
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "target",
+                    "text"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "setName"
+                    },
+                    "target": {
+                      "description": "A node id, or `@ref` of a node made earlier in this batch.",
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "target",
+                    "name"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "move"
+                    },
+                    "target": {
+                      "description": "A node id, or `@ref` of a node made earlier in this batch.",
+                      "type": "string"
+                    },
+                    "parentId": {
+                      "description": "The new parent. Left out: the node stays under its parent and only changes place.",
+                      "anyOf": [
+                        {
+                          "description": "A node id, or `@ref` of a node made earlier in this batch.",
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "index": {
+                      "description": "0-based position among the new parent's children once the operation is done: 0 is first, the number of other children is last. Give `index` or `order`, not both; with neither the node goes last.",
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "order": {
+                      "description": "Raw sibling order key (a fractional index such as \"a0\"; siblings sort by it as plain strings). Prefer `index`; give `index` or `order`, not both.",
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "target"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "duplicate"
+                    },
+                    "target": {
+                      "description": "A node id, or `@ref` of a node made earlier in this batch.",
+                      "type": "string"
+                    },
+                    "parentId": {
+                      "description": "Where the copy goes. Left out: beside the original, right after it, under the same parent.",
+                      "type": "string"
+                    },
+                    "index": {
+                      "description": "0-based position among the new parent's children once the operation is done: 0 is first, the number of other children is last. Give `index` or `order`, not both; with neither the node goes last.",
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "position": {
+                      "description": "Where the copy stands, in pixels from its parent's top left (`left` / `top`). Left out: an artboard copy is placed in free room on its page; any other copy keeps its original's place.",
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "ref": {
+                      "description": "A name for what this operation makes: later operations target it as `@name`.",
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "target"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "delete"
+                    },
+                    "target": {
+                      "description": "A node id, or `@ref` of a node made earlier in this batch.",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "target"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          },
+          "label": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "fileId",
+          "operations"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false
+      }
+    },
+    {
+      "name": "design_write",
+      "description": "Write HTML into a place: each element becomes a layer under `parentId` (an artboard or a layer, never a page), its `style` attribute becomes typed styles with `var(--token)` kept, `data-name` names the layer. If design_get_context says designSystem.next is \"tokens\", create Colour, Type, Spacing, Radius, Shadow and Border first and do not write layers. Colour, type (family, size, line height, weight, tracking), spacing, radius, border width and shadow must be var(--token). An inline `<svg>` (any icon set, or your own) becomes one icon layer sized by its width/height and coloured by `color` (use `currentColor` in the SVG); say its set with `data-icon=\"lucide:camera\"` or `data-icon=\"phosphor:house:bold\"`. Code generation is paused, so that name is kept and no React file is written. HTML export of the layer is separate and still works. Any Google Fonts family named in `font-family` is loaded. One undo; nothing is kept if any of it fails. Answers with `rootNodeIds` (the layers made directly under `parentId`) and `createdCount`; pass `returnAllIds: true` for every id, or read the outline of a root.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The design file this call is for. Required on every call: there is no current file."
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
+          },
+          "parentId": {
+            "type": "string"
+          },
+          "html": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "returnAllIds": {
+            "description": "Also return the id of every layer made (`createdNodeIds`), not only the top ones. Off by default: a large write makes hundreds.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "fileId",
+          "parentId",
+          "html"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false
+      }
+    },
+    {
+      "name": "design_query",
+      "description": "Find layers with a CSS-shaped selector: `artboard[name=\"Home\"] *` (any depth), `[name=\"Tabs\"] > button:nth-child(2)` (`>` is direct children; `:nth-child()` takes n, odd, even or An+B), `:text(\"Sign\")` (part of the words), `:text-is(\"Sign in\")` (all of them), `:token(--accent)`, `:literal-color`. Each match gives id, kind, name, tag, parentId and parentName (and a word layer its words), so layers with no name can be told apart. `count` is every match; at most `limit` (200) are listed, `truncated` and `nextOffset` page through the rest.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The design file this call is for. Required on every call: there is no current file."
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
+          },
+          "selector": {
+            "description": "CSS-shaped: kinds (page, artboard, element, text, instance), tags (button), [name=\"X\"] and [name*=\"X\"], descendant (space) and child (>) combinators, comma for OR, and :nth-child(n | odd | even | An+B), :text(\"part of the words\"), :text-is(\"all the words\"), :token(--name), :literal-color, :instance-of(componentId).",
+            "type": "string",
+            "maxLength": 4096
+          },
+          "limit": {
+            "description": "How many matches to list, 200 when not given.",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000
+          },
+          "offset": {
+            "description": "Skip this many matches: pass the `nextOffset` of the last answer for the next ones.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "fileId",
+          "selector"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "design_assert",
+      "description": "Check a claim about the layers a selector matches: how many there are, that a property is a token on all of them, that none uses a hard-coded colour.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The design file this call is for. Required on every call: there is no current file."
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
+          },
+          "selector": {
+            "type": "string"
+          },
+          "expect": {
+            "type": "object",
+            "properties": {
+              "count": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "tokenized": {
+                "type": "string"
+              },
+              "noLiteralColors": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "required": [
+          "fileId",
+          "selector",
+          "expect"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "design_lint",
+      "description": "What to fix, for you alone. Do not show it to the person. A missing design system, a hard-coded colour, type, spacing, radius, border or shadow, other values outside the system, broken tokens, empty words, unnamed containers. `tokenChoices` lists the tokens that already exist. Use one. Add a new token only when none fits, with design_tokens_set create and confirmNeeded: true, then use it. Pass `pageId` to lint one page. Lists errors and warnings by default (`severity: 'info'` adds naming advice), at most `limit` findings (50; 500 at most) with `countsByRule`, `truncated` and `nextOffset`; `rules` lists only the rules named. `autofixBatch` holds the fixes of the findings listed. Run it after you write. design_render only once nothing here remains.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The design file this call is for. Required on every call: there is no current file."
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
+          },
+          "pageId": {
+            "description": "Lint only this page (an id from design_get_context). Without pageId or rootId, the whole file.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 400
+          },
+          "rootId": {
+            "description": "Lint only the tree under this layer (an artboard or a layer). With pageId, it must be on that page.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 400
+          },
+          "severity": {
+            "description": "The least severe findings listed: 'error', 'warning' (the default: errors and warnings) or 'info' (everything, naming advice included).",
+            "type": "string",
+            "enum": [
+              "error",
+              "warning",
+              "info"
+            ]
+          },
+          "rules": {
+            "description": "List only these rules (names as `countsByRule` gives them).",
+            "maxItems": 50,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            }
+          },
+          "limit": {
+            "description": "How many findings to list, 50 when not given, 500 at most.",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 500
+          },
+          "offset": {
+            "description": "Skip this many findings: pass the `nextOffset` of the last answer for the next ones.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "fileId"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "design_tokens_get",
+      "description": "The file's tokens and designSystem: ready, next (\"tokens\" or \"artboards\"), and which of Colour, Type, Spacing, Radius, Shadow and Border exist. Names, types, values per mode, and optionally where each is used and what is wrong with them. Create the missing collections before drawing.",
+      "inputSchema": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The design file this call is for. Required on every call: there is no current file."
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
+          },
+          "includeUsage": {
+            "type": "boolean"
+          },
+          "includeCss": {
+            "type": "boolean"
+          },
+          "includeIssues": {
+            "type": "boolean"
+          },
+          "collectionId": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "color",
+              "number",
+              "string",
+              "boolean"
+            ]
+          }
+        },
+        "required": [
+          "fileId"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "design_tokens_set",
+      "description": "Change the file's tokens: collections, modes, tokens, aliases, bindings of a layer to a token, theme pins. The design system is the collections Colour, Type, Spacing, Radius, Shadow and Border. Create those, with at least one token each, before any artboard. A create into a collection that already has tokens is refused, the batch is kept back, and the answer lists every existing token. Repeat that create with confirmNeeded: true only when none of them is the value you need, then bind the new token. One undo; all or nothing.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The design file this call is for. Required on every call: there is no current file."
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
+          },
+          "operations": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "createCollection"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "attribute": {
+                      "type": "string"
+                    },
+                    "firstMode": {
+                      "type": "string"
+                    },
+                    "defaultType": {
+                      "type": "string",
+                      "enum": [
+                        "color",
+                        "number",
+                        "string",
+                        "boolean"
+                      ]
+                    },
+                    "ref": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "name"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "setCollection"
+                    },
+                    "collectionId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "attribute": {
+                      "type": "string"
+                    },
+                    "defaultMode": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "collectionId"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "deleteCollection"
+                    },
+                    "collectionId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "collectionId"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "addMode"
+                    },
+                    "collectionId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "ref": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "collectionId",
+                    "name"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "removeMode"
+                    },
+                    "collectionId": {
+                      "type": "string"
+                    },
+                    "mode": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "collectionId",
+                    "mode"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "renameMode"
+                    },
+                    "collectionId": {
+                      "type": "string"
+                    },
+                    "mode": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "collectionId",
+                    "mode",
+                    "name"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "create"
+                    },
+                    "collectionId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "color",
+                        "number",
+                        "string",
+                        "boolean"
+                      ]
+                    },
+                    "valuesByMode": {
+                      "type": "object",
+                      "propertyNames": {
+                        "type": "string"
+                      },
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "type": "string",
+                                "const": "color"
+                              },
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "kind",
+                              "value"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "type": "string",
+                                "const": "number"
+                              },
+                              "value": {
+                                "type": "number"
+                              },
+                              "unit": {
+                                "default": "px",
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "kind",
+                              "value"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "type": "string",
+                                "const": "string"
+                              },
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "kind",
+                              "value"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "type": "string",
+                                "const": "boolean"
+                              },
+                              "value": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "kind",
+                              "value"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "type": "string",
+                                "const": "alias"
+                              },
+                              "variableId": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "kind",
+                              "variableId"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "type": "string",
+                                "const": "expr"
+                              },
+                              "raw": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "kind",
+                              "raw"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "scopes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "fill",
+                          "stroke",
+                          "text-color",
+                          "shadow",
+                          "filter",
+                          "width-height",
+                          "gap",
+                          "padding",
+                          "radius",
+                          "font-size",
+                          "line-height",
+                          "letter-spacing",
+                          "opacity",
+                          "blur",
+                          "duration",
+                          "text",
+                          "visibility"
+                        ]
+                      }
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "hiddenFromPickers": {
+                      "type": "boolean"
+                    },
+                    "ref": {
+                      "type": "string"
+                    },
+                    "confirmNeeded": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "collectionId",
+                    "name",
+                    "type"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "set"
+                    },
+                    "variableId": {
+                      "type": "string"
+                    },
+                    "mode": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "type": "string",
+                              "const": "color"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "value"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "type": "string",
+                              "const": "number"
+                            },
+                            "value": {
+                              "type": "number"
+                            },
+                            "unit": {
+                              "default": "px",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "value"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "type": "string",
+                              "const": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "value"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "type": "string",
+                              "const": "boolean"
+                            },
+                            "value": {
+                              "type": "boolean"
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "value"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "type": "string",
+                              "const": "alias"
+                            },
+                            "variableId": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "variableId"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "type": "string",
+                              "const": "expr"
+                            },
+                            "raw": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "raw"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "variableId",
+                    "mode",
+                    "value"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "rename"
+                    },
+                    "variableId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "variableId",
+                    "name"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "setDetails"
+                    },
+                    "variableId": {
+                      "type": "string"
+                    },
+                    "scopes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "fill",
+                          "stroke",
+                          "text-color",
+                          "shadow",
+                          "filter",
+                          "width-height",
+                          "gap",
+                          "padding",
+                          "radius",
+                          "font-size",
+                          "line-height",
+                          "letter-spacing",
+                          "opacity",
+                          "blur",
+                          "duration",
+                          "text",
+                          "visibility"
+                        ]
+                      }
+                    },
+                    "codeSyntax": {
+                      "type": "object",
+                      "properties": {
+                        "ios": {
+                          "type": "string"
+                        },
+                        "android": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "hiddenFromPickers": {
+                      "type": "boolean"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "variableId"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "delete"
+                    },
+                    "variableId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "variableId"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "move"
+                    },
+                    "variableId": {
+                      "type": "string"
+                    },
+                    "collectionId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "variableId",
+                    "collectionId"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "duplicate"
+                    },
+                    "variableId": {
+                      "type": "string"
+                    },
+                    "collectionId": {
+                      "type": "string"
+                    },
+                    "ref": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "variableId"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "repair"
+                    }
+                  },
+                  "required": [
+                    "op"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "detachLibrary"
+                    },
+                    "libraryId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "bind"
+                    },
+                    "nodeId": {
+                      "type": "string"
+                    },
+                    "property": {
+                      "type": "string"
+                    },
+                    "breakpoint": {
+                      "default": "base",
+                      "type": "string"
+                    },
+                    "state": {
+                      "default": "default",
+                      "type": "string"
+                    },
+                    "variableId": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "nodeId",
+                    "variableId"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "pinTheme"
+                    },
+                    "nodeId": {
+                      "type": "string"
+                    },
+                    "collectionId": {
+                      "type": "string"
+                    },
+                    "mode": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "nodeId",
+                    "collectionId",
+                    "mode"
+                  ]
+                }
+              ]
+            }
+          },
+          "label": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "fileId",
+          "operations"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false
+      }
+    },
+    {
+      "name": "design_fix_requests",
+      "description": "The comments a person left on layers asking for a fix, with the layer each is on.",
+      "inputSchema": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The design file this call is for. Required on every call: there is no current file."
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
+          }
+        },
+        "required": [
+          "fileId"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "design_undo",
+      "description": "Take back your own last step on this file. Only what this connection did; never a person's or another agent's work.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The design file this call is for. Required on every call: there is no current file."
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
+          }
+        },
+        "required": [
+          "fileId"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false
+      }
+    },
+    {
+      "name": "design_redo",
+      "description": "Put back the step you last took back on this file.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The design file this call is for. Required on every call: there is no current file."
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
+          }
+        },
+        "required": [
+          "fileId"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false
+      }
+    },
+    {
+      "name": "design_tx_begin",
+      "description": "Open a transaction on a file: a private copy you edit across many calls (pass its `transactionId` to them). Nothing reaches the real file, or anyone looking at it, until you commit.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The design file this call is for. Required on every call: there is no current file."
+          }
+        },
+        "required": [
+          "fileId"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false
+      }
+    },
+    {
+      "name": "design_tx_commit",
+      "description": "Land a transaction in the real file as one step and one undo. Refused, with the list, if a layer it touched was changed by someone else since it began, or if an artboard would cover another. `dryRun` says what would happen and changes nothing.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The design file this call is for. Required on every call: there is no current file."
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "The transaction, as design_tx_begin returned it."
+          },
+          "dryRun": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "fileId",
+          "transactionId"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false
+      }
+    },
+    {
+      "name": "design_tx_rollback",
+      "description": "Throw a transaction away. Nothing of it was ever in the real file.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The design file this call is for. Required on every call: there is no current file."
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "The transaction, as design_tx_begin returned it."
+          }
+        },
+        "required": [
+          "fileId",
+          "transactionId"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "design_export",
+      "description": "Make the export files of one node (an artboard or a layer) and get them back. Drawn from your own copy of the file, so it shows your latest work; with `transactionId`, as that transaction has it. `format` picks one (png, jpeg, webp, svg, pdf, html); left out, the node is exported as its own export settings say, or as a PDF when it has none. The answer lists each file by `name` and `mime`, with the bytes as `base64`, and `failures` for anything that could not be drawn. It does not change the file.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The design file this call is for. Required on every call: there is no current file."
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
+          },
+          "nodeId": {
+            "description": "The artboard or layer to export.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 400
+          },
+          "format": {
+            "description": "png, jpeg, webp, svg, pdf or html. Left out, the layer is exported as its own export settings say; a layer with none is a PDF.",
+            "type": "string",
+            "enum": [
+              "png",
+              "jpeg",
+              "webp",
+              "svg",
+              "pdf",
+              "html"
+            ]
+          }
+        },
+        "required": [
+          "fileId",
+          "nodeId"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    {
+      "name": "design_render",
+      "description": "Draw one node (an artboard or a layer) and get the picture back. Drawn from your own copy of the file, so it shows your latest work; with `transactionId`, as that transaction has it. A layer is drawn as it stands in its artboard, with whatever of it shows outside its box. The answer gives `width`, `height`, the `scale` used, the `requestedScale`, and `capped: true` with a `note` when the scale was lowered (above 3, or a picture past 3200 pixels a side). Call it only after design_lint reports no errors. It checks what a rule cannot see. The linter is how you know the design stays on the system.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The design file this call is for. Required on every call: there is no current file."
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
+          },
+          "nodeId": {
+            "description": "The artboard or layer to draw.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 400
+          },
+          "scale": {
+            "description": "Picture pixels per CSS pixel, 1 when not given. Above 3 is drawn at 3; a node that would pass 3200 pixels a side is drawn smaller. The answer gives the scale used.",
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        },
+        "required": [
+          "fileId",
+          "nodeId"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    }
+  ]
+}
