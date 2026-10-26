@@ -1,6 +1,6 @@
 {
   "name": "@kiteways/design-mcp",
-  "version": "0.7.5",
+  "version": "0.8.0",
   "description": "Lets a coding agent read and edit design files in the Kiteways Design app on this computer.",
   "license": "UNLICENSED",
   "type": "module",

@@ -1,7 +1,7 @@
 {
   "name": "kiteways-design",
   "displayName": "Kiteways Design",
-  "version": "0.7.5",
+  "version": "0.8.0",
   "description": "Edit Kiteways design files from Cursor. The agent uses the design system in the file. Kiteways Design must be open and signed in on this computer.",
   "author": {
     "name": "Kiteways",

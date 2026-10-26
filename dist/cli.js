@@ -23476,13 +23476,7 @@ class Server extends Protocol {
 }
 // src/tools.json
 var tools_default = {
-  instructions: `Kiteways Design: you draw and change design files that live on the cloud. A person may be looking at the same file; your changes reach them as you make them.
-Every call names its file with \`fileId\`. There is no current file, page or selection: what the person has on screen never decides where you write. Get ids from design_list_files and design_get_context, then keep using those ids.
-Every write names its place: the parent you create under, the layer you change. To make an artboard, name the page it goes on. A new artboard is placed for you in free room; do not set its left and top.
-A write answers with \`sync\`: "saved" means the server has it; "saving" or "offline" means it is kept and will be sent; an error means it was refused and taken back.
-Work in small steps (one visual group per design_write) and read the outline of a place before writing into it.
-Call design_get_context first. designSystem.next is "tokens" or "artboards". When it is "tokens", Colour, Type, Spacing, Radius, Shadow or Border is missing or empty. Create each of those collections with design_tokens_set, at least one token in each, before any artboard or design_write. When it is "artboards", every colour, type (family, size, line height, weight, tracking), spacing, radius, border width and shadow is a var(--token) from those collections. The words of a text layer are yours to write. Its type is not.
-design_lint is for you, not the person. Never quote its findings. Read tokenChoices and use one of those tokens. Add a new token only when none of them is the value you need: design_tokens_set answers with the existing tokens and keeps the batch back until you repeat the create with confirmNeeded: true. Then use the new token. design_render is only after design_lint has nothing left, and only for what a rule cannot see.`,
+  instructions: 'Kiteways Design: you draw and change design files that live on the cloud. A person may be looking at the same file; your changes reach them as you make them.\nEvery call names its file with `fileId`. There is no current file, page or selection: what the person has on screen never decides where you write. Get ids from design_list_files and design_get_context, then keep using those ids.\nEvery write names its place: the parent you create under, the layer you change. To make an artboard, name the page it goes on. A new artboard is placed for you in free room; do not set its left and top.\nA write answers with `sync`: "saved" means the server has it; "saving" or "offline" means it is kept and will be sent; an error means it was refused and taken back.\nRead the outline of a place before writing into it. The person watches the canvas while you work, and each call shows there as it lands: build in small visible pieces. Write one element or one small group per call (the navigation, the headline, one card, a row of buttons), never a whole section or screen in one write. Use design_edit_batch only to change many existing layers at once (a bulk restyle the person asked for, a rename across a page), and even then batch one group at a time.\nCall design_get_context first. designSystem.next is "tokens" or "artboards". When it is "tokens", Colour, Type, Spacing, Radius, Shadow or Border is missing or empty. Create each of those collections with design_tokens_set, at least one token in each, before any artboard or design_write. When it is "artboards", every colour, type (family, size, line height, weight, tracking), spacing, radius, border width and shadow is a var(--token) from those collections. The words of a text layer are yours to write. Its type is not.\nText: an element of words only (a heading, a paragraph, a button label) becomes one text layer with its own type, as the person makes them. One text layer has one style: a word in another font or colour is its own element, in a flex row with the rest.\nPictures: you can make them (design_generate_image) and place them (design_place_image); never say you cannot. Use pictures the person attached: place them, or pass them as references when they ask for something based on them. Make a picture when the design needs one (a hero photo, a product shot, an illustration) even if not asked. Every place for a picture is an <img data-name="…" alt="…" style="width: …; height: …"> (an image layer, with the agent mark beside it for the person), never a plain frame or rectangle; then fill it. If a picture cannot be made right now, keep the image layer empty and say so in one line.\nAsk before a choice only the person can make (a brand, real content, which of two directions): end your turn with one short question instead of guessing. Do not ask about what you can decide yourself.\ndesign_lint is for you, not the person. Never quote its findings. Read tokenChoices and use one of those tokens. Add a new token only when none of them is the value you need: design_tokens_set answers with the existing tokens and keeps the batch back until you repeat the create with confirmNeeded: true. Then use the new token. design_render is only after design_lint has nothing left, and only for what a rule cannot see.',
   tools: [
     {
       name: "design_list_files",
@@ -23529,7 +23523,7 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
     },
     {
       name: "design_get_context",
-      description: 'Start here. designSystem.next is "tokens" when Colour, Type, Spacing, Radius, Shadow or Border is missing or empty: create those with design_tokens_set before any artboard. It is "artboards" when the system is ready. Also the pages and how styles use tokens. Components and code generation are paused.',
+      description: 'Start here. designSystem.next is "tokens" when Colour, Type, Spacing, Radius, Shadow or Border is missing or empty: create those with design_tokens_set before any artboard. It is "artboards" when the system is ready. Also the pages and how styles use tokens.',
       inputSchema: {
         default: {},
         type: "object",
@@ -23553,7 +23547,7 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
     },
     {
       name: "design_read_outline",
-      description: "The tree under one node (`rootId`: a page, an artboard or a layer): id, kind, name and tag of each layer, `depth` levels down (4 by default; 0 is the node alone) and at most `maxNodes` layers (300 by default), upper levels first. A layer whose inside is not listed has `childCount`: read it as `rootId` for more. Read this before writing into a place, to be sure of what is there.",
+      description: "The tree under one node (`rootId`: a page, an artboard or a layer): id, kind, name and tag of each layer, `depth` levels down (4 by default; 0 is the node alone) and at most `maxNodes` layers (300 by default), upper levels first. A layer whose inside is not listed has `childCount`: read it as `rootId` for more. Read this before writing into a place, to be sure of what is there. For what is ON a layer (styles, words, settings) use design_read_layers.",
       inputSchema: {
         type: "object",
         properties: {
@@ -23566,8 +23560,8 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
             description: "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
           },
           rootId: {
-            description: "The page, artboard or layer whose tree is read.",
-            type: "string"
+            type: "string",
+            description: "The page, artboard or layer whose tree is read."
           },
           depth: {
             description: "How many levels below rootId to list: 0 is rootId alone, 1 adds its children. 4 when not given; 200 at most.",
@@ -23593,8 +23587,42 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
       }
     },
     {
+      name: "design_read_layers",
+      description: "What is on layers, by id (at most 50): kind, name, tag, parent, how many layers are inside, the styles as CSS by `breakpoint/state` (tokens kept as var(--token)), the words of a text layer, its settings, and for a text layer where each type part (family, size, line height, weight, tracking) comes from — itself or the layer it inherits it from. Read a layer here before changing it, and when design_lint names a layer, to see what it has. Ids that are not layers come back in `missing`.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          fileId: {
+            type: "string",
+            description: "The design file this call is for. Required on every call: there is no current file."
+          },
+          transactionId: {
+            type: "string",
+            description: "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
+          },
+          nodeIds: {
+            minItems: 1,
+            maxItems: 50,
+            type: "array",
+            items: {
+              type: "string"
+            },
+            description: "The layers to read, by id (from design_read_outline or design_query); at most 50."
+          }
+        },
+        required: [
+          "fileId",
+          "nodeIds"
+        ],
+        additionalProperties: false
+      },
+      annotations: {
+        readOnlyHint: true
+      }
+    },
+    {
       name: "design_edit_batch",
-      description: "Change the file: an ordered list of operations (create, setStyle, setText, setName, move, duplicate, delete, instantiate, proposeStyle) applied as ONE step. All of it lands or none does, and it is one undo. Every operation is strict: an unknown field fails the batch and names the field. `create` names its parent: a page has no parent (leave `parentId` out), an artboard goes under a page, everything else inside an artboard; `styles` on create are applied as it is made. Colour, type, spacing, radius, border width and shadow are var(--token) from the design system. If design_get_context says designSystem.next is \"tokens\", create the tokens first and do not draw. `index` (0-based among the new parent's children) places what is made, moved or duplicated; `order` is the raw key instead. `duplicate` copies a layer or artboard with everything inside it under new ids and answers with the copy's id. Style names may be camelCase or kebab-case. A node made earlier in the batch is addressed as `@ref`. Leave `left` and `top` off a new artboard: it is placed in free room on its page; a place known to cover another artboard is refused, judged after the whole batch (a height that follows the content counts only from its top).",
+      description: 'Change the file: an ordered list of operations (create, setStyle, setText, setName, move, duplicate, delete, proposeStyle) applied as ONE step. For changing many existing layers at once (a bulk restyle, a rename across a page), one group at a time; to build something new, use design_write one element or small group per call so the person sees it come together. All of it lands or none does, and it is one undo. Every operation is strict: an unknown field fails the batch and names the field. `create` names its parent: a page has no parent (leave `parentId` out), an artboard goes under a page, everything else inside an artboard; `styles` on create are applied as it is made. Colour, type, spacing, radius, border width and shadow are var(--token) from the design system. If design_get_context says designSystem.next is "tokens", create the tokens first and do not draw. `index` (0-based among the new parent\'s children) places what is made, moved or duplicated; `order` is the raw key instead. `duplicate` copies a layer or artboard with everything inside it under new ids and answers with the copy\'s id. Style names may be camelCase or kebab-case. A node made earlier in the batch is addressed as `@ref`. Leave `left` and `top` off a new artboard: it is placed in free room on its page; a place known to cover another artboard is refused, judged after the whole batch (a height that follows the content counts only from its top).',
       inputSchema: {
         type: "object",
         properties: {
@@ -23607,10 +23635,9 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
             description: "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
           },
           operations: {
-            description: "Applied in order as one step. Every operation is strict: an unknown field fails the whole batch and names the field.",
             type: "array",
             items: {
-              anyOf: [
+              oneOf: [
                 {
                   type: "object",
                   properties: {
@@ -23622,8 +23649,8 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                       description: 'Where it goes. A page has no parent: leave parentId out (or null) for kind "page". An artboard goes under a page; everything else inside an artboard or a layer in one.',
                       anyOf: [
                         {
-                          description: "A node id, or `@ref` of a node made earlier in this batch.",
-                          type: "string"
+                          type: "string",
+                          description: "A node id, or `@ref` of a node made earlier in this batch."
                         },
                         {
                           type: "null"
@@ -23652,33 +23679,33 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                         {
                           type: "object",
                           propertyNames: {
-                            description: "A CSS property: camelCase (`backgroundColor`) or kebab-case (`background-color`), both stored as camelCase; `-webkit-x` is `WebkitX`; a custom property (`--brand`) is kept as written.",
                             type: "string",
-                            pattern: "^(?:--[A-Za-z0-9_-]+|-?[A-Za-z][A-Za-z0-9-]*)$"
+                            pattern: "^(?:--[A-Za-z0-9_-]+|-?[A-Za-z][A-Za-z0-9-]*)$",
+                            description: "A CSS property: camelCase (`backgroundColor`) or kebab-case (`background-color`), both stored as camelCase; `-webkit-x` is `WebkitX`; a custom property (`--brand`) is kept as written."
                           },
                           additionalProperties: {
-                            description: "A CSS value: `16px`, `#fff`, `var(--token)`, `auto`.",
-                            type: "string"
+                            type: "string",
+                            description: "A CSS value: `16px`, `#fff`, `var(--token)`, `auto`."
                           }
                         },
                         {}
                       ]
                     },
                     index: {
-                      description: "0-based position among the new parent's children once the operation is done: 0 is first, the number of other children is last. Give `index` or `order`, not both; with neither the node goes last.",
                       type: "integer",
                       minimum: 0,
-                      maximum: 9007199254740991
+                      maximum: 9007199254740991,
+                      description: "0-based position among the new parent's children once the operation is done: 0 is first, the number of other children is last. Give `index` or `order`, not both; with neither the node goes last."
                     },
                     order: {
-                      description: 'Raw sibling order key (a fractional index such as "a0"; siblings sort by it as plain strings). Prefer `index`; give `index` or `order`, not both.',
                       type: "string",
-                      minLength: 1
+                      minLength: 1,
+                      description: 'Raw sibling order key (a fractional index such as "a0"; siblings sort by it as plain strings). Prefer `index`; give `index` or `order`, not both.'
                     },
                     ref: {
-                      description: "A name for what this operation makes: later operations target it as `@name`.",
                       type: "string",
-                      minLength: 1
+                      minLength: 1,
+                      description: "A name for what this operation makes: later operations target it as `@name`."
                     }
                   },
                   required: [
@@ -23695,8 +23722,8 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                       const: "setStyle"
                     },
                     target: {
-                      description: "A node id, or `@ref` of a node made earlier in this batch.",
-                      type: "string"
+                      type: "string",
+                      description: "A node id, or `@ref` of a node made earlier in this batch."
                     },
                     breakpoint: {
                       default: "base",
@@ -23707,13 +23734,13 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                       type: "string"
                     },
                     property: {
-                      description: "A CSS property: camelCase (`backgroundColor`) or kebab-case (`background-color`), both stored as camelCase; `-webkit-x` is `WebkitX`; a custom property (`--brand`) is kept as written.",
                       type: "string",
-                      pattern: "^(?:--[A-Za-z0-9_-]+|-?[A-Za-z][A-Za-z0-9-]*)$"
+                      pattern: "^(?:--[A-Za-z0-9_-]+|-?[A-Za-z][A-Za-z0-9-]*)$",
+                      description: "A CSS property: camelCase (`backgroundColor`) or kebab-case (`background-color`), both stored as camelCase; `-webkit-x` is `WebkitX`; a custom property (`--brand`) is kept as written."
                     },
                     value: {
-                      description: "A CSS value: `16px`, `#fff`, `var(--token)`, `auto`.",
-                      type: "string"
+                      type: "string",
+                      description: "A CSS value: `16px`, `#fff`, `var(--token)`, `auto`."
                     }
                   },
                   required: [
@@ -23729,63 +23756,11 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                   properties: {
                     op: {
                       type: "string",
-                      const: "instantiate"
-                    },
-                    parentId: {
-                      anyOf: [
-                        {
-                          description: "A node id, or `@ref` of a node made earlier in this batch.",
-                          type: "string"
-                        },
-                        {
-                          type: "null"
-                        }
-                      ]
-                    },
-                    componentId: {
-                      type: "string"
-                    },
-                    props: {
-                      type: "object",
-                      propertyNames: {
-                        type: "string"
-                      },
-                      additionalProperties: {}
-                    },
-                    index: {
-                      description: "0-based position among the new parent's children once the operation is done: 0 is first, the number of other children is last. Give `index` or `order`, not both; with neither the node goes last.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 9007199254740991
-                    },
-                    order: {
-                      description: 'Raw sibling order key (a fractional index such as "a0"; siblings sort by it as plain strings). Prefer `index`; give `index` or `order`, not both.',
-                      type: "string",
-                      minLength: 1
-                    },
-                    ref: {
-                      description: "A name for what this operation makes: later operations target it as `@name`.",
-                      type: "string",
-                      minLength: 1
-                    }
-                  },
-                  required: [
-                    "op",
-                    "parentId",
-                    "componentId"
-                  ],
-                  additionalProperties: false
-                },
-                {
-                  type: "object",
-                  properties: {
-                    op: {
-                      type: "string",
                       const: "proposeStyle"
                     },
                     target: {
-                      description: "A node id, or `@ref` of a node made earlier in this batch.",
-                      type: "string"
+                      type: "string",
+                      description: "A node id, or `@ref` of a node made earlier in this batch."
                     },
                     breakpoint: {
                       default: "base",
@@ -23796,13 +23771,13 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                       type: "string"
                     },
                     property: {
-                      description: "A CSS property: camelCase (`backgroundColor`) or kebab-case (`background-color`), both stored as camelCase; `-webkit-x` is `WebkitX`; a custom property (`--brand`) is kept as written.",
                       type: "string",
-                      pattern: "^(?:--[A-Za-z0-9_-]+|-?[A-Za-z][A-Za-z0-9-]*)$"
+                      pattern: "^(?:--[A-Za-z0-9_-]+|-?[A-Za-z][A-Za-z0-9-]*)$",
+                      description: "A CSS property: camelCase (`backgroundColor`) or kebab-case (`background-color`), both stored as camelCase; `-webkit-x` is `WebkitX`; a custom property (`--brand`) is kept as written."
                     },
                     value: {
-                      description: "A CSS value: `16px`, `#fff`, `var(--token)`, `auto`.",
-                      type: "string"
+                      type: "string",
+                      description: "A CSS value: `16px`, `#fff`, `var(--token)`, `auto`."
                     },
                     rationale: {
                       type: "string"
@@ -23825,8 +23800,8 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                       const: "resolveFixRequest"
                     },
                     target: {
-                      description: "A node id, or `@ref` of a node made earlier in this batch.",
-                      type: "string"
+                      type: "string",
+                      description: "A node id, or `@ref` of a node made earlier in this batch."
                     },
                     requestId: {
                       type: "string"
@@ -23847,8 +23822,8 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                       const: "setText"
                     },
                     target: {
-                      description: "A node id, or `@ref` of a node made earlier in this batch.",
-                      type: "string"
+                      type: "string",
+                      description: "A node id, or `@ref` of a node made earlier in this batch."
                     },
                     text: {
                       type: "string"
@@ -23869,8 +23844,8 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                       const: "setName"
                     },
                     target: {
-                      description: "A node id, or `@ref` of a node made earlier in this batch.",
-                      type: "string"
+                      type: "string",
+                      description: "A node id, or `@ref` of a node made earlier in this batch."
                     },
                     name: {
                       type: "string"
@@ -23891,15 +23866,15 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                       const: "move"
                     },
                     target: {
-                      description: "A node id, or `@ref` of a node made earlier in this batch.",
-                      type: "string"
+                      type: "string",
+                      description: "A node id, or `@ref` of a node made earlier in this batch."
                     },
                     parentId: {
                       description: "The new parent. Left out: the node stays under its parent and only changes place.",
                       anyOf: [
                         {
-                          description: "A node id, or `@ref` of a node made earlier in this batch.",
-                          type: "string"
+                          type: "string",
+                          description: "A node id, or `@ref` of a node made earlier in this batch."
                         },
                         {
                           type: "null"
@@ -23907,15 +23882,15 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                       ]
                     },
                     index: {
-                      description: "0-based position among the new parent's children once the operation is done: 0 is first, the number of other children is last. Give `index` or `order`, not both; with neither the node goes last.",
                       type: "integer",
                       minimum: 0,
-                      maximum: 9007199254740991
+                      maximum: 9007199254740991,
+                      description: "0-based position among the new parent's children once the operation is done: 0 is first, the number of other children is last. Give `index` or `order`, not both; with neither the node goes last."
                     },
                     order: {
-                      description: 'Raw sibling order key (a fractional index such as "a0"; siblings sort by it as plain strings). Prefer `index`; give `index` or `order`, not both.',
                       type: "string",
-                      minLength: 1
+                      minLength: 1,
+                      description: 'Raw sibling order key (a fractional index such as "a0"; siblings sort by it as plain strings). Prefer `index`; give `index` or `order`, not both.'
                     }
                   },
                   required: [
@@ -23932,21 +23907,20 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                       const: "duplicate"
                     },
                     target: {
-                      description: "A node id, or `@ref` of a node made earlier in this batch.",
-                      type: "string"
+                      type: "string",
+                      description: "A node id, or `@ref` of a node made earlier in this batch."
                     },
                     parentId: {
                       description: "Where the copy goes. Left out: beside the original, right after it, under the same parent.",
                       type: "string"
                     },
                     index: {
-                      description: "0-based position among the new parent's children once the operation is done: 0 is first, the number of other children is last. Give `index` or `order`, not both; with neither the node goes last.",
                       type: "integer",
                       minimum: 0,
-                      maximum: 9007199254740991
+                      maximum: 9007199254740991,
+                      description: "0-based position among the new parent's children once the operation is done: 0 is first, the number of other children is last. Give `index` or `order`, not both; with neither the node goes last."
                     },
                     position: {
-                      description: "Where the copy stands, in pixels from its parent's top left (`left` / `top`). Left out: an artboard copy is placed in free room on its page; any other copy keeps its original's place.",
                       type: "object",
                       properties: {
                         x: {
@@ -23960,12 +23934,13 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                         "x",
                         "y"
                       ],
-                      additionalProperties: false
+                      additionalProperties: false,
+                      description: "Where the copy stands, in pixels from its parent's top left (`left` / `top`). Left out: an artboard copy is placed in free room on its page; any other copy keeps its original's place."
                     },
                     ref: {
-                      description: "A name for what this operation makes: later operations target it as `@name`.",
                       type: "string",
-                      minLength: 1
+                      minLength: 1,
+                      description: "A name for what this operation makes: later operations target it as `@name`."
                     }
                   },
                   required: [
@@ -23982,8 +23957,8 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                       const: "delete"
                     },
                     target: {
-                      description: "A node id, or `@ref` of a node made earlier in this batch.",
-                      type: "string"
+                      type: "string",
+                      description: "A node id, or `@ref` of a node made earlier in this batch."
                     }
                   },
                   required: [
@@ -23993,7 +23968,8 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                   additionalProperties: false
                 }
               ]
-            }
+            },
+            description: "Applied in order as one step. Every operation is strict: an unknown field fails the whole batch and names the field."
           },
           label: {
             type: "string"
@@ -24010,7 +23986,7 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
     },
     {
       name: "design_write",
-      description: 'Write HTML into a place: each element becomes a layer under `parentId` (an artboard or a layer, never a page), its `style` attribute becomes typed styles with `var(--token)` kept, `data-name` names the layer. If design_get_context says designSystem.next is "tokens", create Colour, Type, Spacing, Radius, Shadow and Border first and do not write layers. Colour, type (family, size, line height, weight, tracking), spacing, radius, border width and shadow must be var(--token). An inline `<svg>` (any icon set, or your own) becomes one icon layer sized by its width/height and coloured by `color` (use `currentColor` in the SVG); say its set with `data-icon="lucide:camera"` or `data-icon="phosphor:house:bold"`. Code generation is paused, so that name is kept and no React file is written. HTML export of the layer is separate and still works. Any Google Fonts family named in `font-family` is loaded. One undo; nothing is kept if any of it fails. Answers with `rootNodeIds` (the layers made directly under `parentId`) and `createdCount`; pass `returnAllIds: true` for every id, or read the outline of a root.',
+      description: 'Write HTML into a place, one element or one small group per call (the headline, one card, a row of buttons; never a whole section or screen at once): the person watches each piece land. Each element becomes a layer under `parentId` (an artboard or a layer, never a page), its `style` attribute becomes typed styles with `var(--token)` kept, `data-name` names the layer. If design_get_context says designSystem.next is "tokens", create Colour, Type, Spacing, Radius, Shadow and Border first and do not write layers. Colour, type (family, size, line height, weight, tracking), spacing, radius, border width and shadow must be var(--token). An inline `<svg>` (any icon set, or your own) becomes one icon layer sized by its width/height and coloured by `color` (use `currentColor` in the SVG); say its set with `data-icon="lucide:camera"` or `data-icon="phosphor:house:bold"`. Code generation is paused, so that name is kept and no React file is written. HTML export of the layer is separate and still works. Any Google Fonts family named in `font-family` is loaded. One undo; nothing is kept if any of it fails. Answers with `rootNodeIds` (the layers made directly under `parentId`) and `createdCount`; pass `returnAllIds: true` for every id, or read the outline of a root.',
       inputSchema: {
         type: "object",
         properties: {
@@ -24048,7 +24024,7 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
     },
     {
       name: "design_query",
-      description: 'Find layers with a CSS-shaped selector: `artboard[name="Home"] *` (any depth), `[name="Tabs"] > button:nth-child(2)` (`>` is direct children; `:nth-child()` takes n, odd, even or An+B), `:text("Sign")` (part of the words), `:text-is("Sign in")` (all of them), `:token(--accent)`, `:literal-color`. Each match gives id, kind, name, tag, parentId and parentName (and a word layer its words), so layers with no name can be told apart. `count` is every match; at most `limit` (200) are listed, `truncated` and `nextOffset` page through the rest.',
+      description: 'Find layers with a CSS-shaped selector: `artboard[name="Home"] *` (any depth), `[name="Tabs"] > button:nth-child(2)` (`>` is direct children; `:nth-child()` takes n, odd, even or An+B), `:text("Sign")` (part of the words), `:text-is("Sign in")` (all of them), `:token(--accent)`, `:literal-color`. Each match gives id, kind, name, tag, parentId and parentName (and a word layer its words), so layers with no name can be told apart. `count` is every match; at most `limit` (200) are listed, `truncated` and `nextOffset` page through the rest. It takes a selector, not ids: to read layers you already have ids for, use design_read_layers.',
       inputSchema: {
         type: "object",
         properties: {
@@ -24061,9 +24037,9 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
             description: "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
           },
           selector: {
-            description: 'CSS-shaped: kinds (page, artboard, element, text, instance), tags (button), [name="X"] and [name*="X"], descendant (space) and child (>) combinators, comma for OR, and :nth-child(n | odd | even | An+B), :text("part of the words"), :text-is("all the words"), :token(--name), :literal-color, :instance-of(componentId).',
             type: "string",
-            maxLength: 4096
+            maxLength: 4096,
+            description: 'CSS-shaped: kinds (page, artboard, element, text, instance), tags (button), [name="X"] and [name*="X"], descendant (space) and child (>) combinators, comma for OR, and :nth-child(n | odd | even | An+B), :text("part of the words"), :text-is("all the words"), :token(--name), :literal-color, :instance-of(componentId).'
           },
           limit: {
             description: "How many matches to list, 200 when not given.",
@@ -24246,7 +24222,7 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
     },
     {
       name: "design_tokens_set",
-      description: "Change the file's tokens: collections, modes, tokens, aliases, bindings of a layer to a token, theme pins. The design system is the collections Colour, Type, Spacing, Radius, Shadow and Border. Create those, with at least one token each, before any artboard. A create into a collection that already has tokens is refused, the batch is kept back, and the answer lists every existing token. Repeat that create with confirmNeeded: true only when none of them is the value you need, then bind the new token. One undo; all or nothing.",
+      description: "Change the file's tokens: collections, modes, tokens, aliases, bindings of a layer to a token, theme pins. The design system is the collections Colour, Type, Spacing, Radius, Shadow and Border. Create those, with at least one token each, before any artboard. Name what you create with `ref` and point at it later in the same batch as `@ref`. A create into a collection that already has tokens is refused, the batch is kept back, and the answer lists every existing token. Repeat that create with confirmNeeded: true only when none of them is the value you need, then bind the new token. One undo; all or nothing.",
       inputSchema: {
         type: "object",
         properties: {
@@ -24262,7 +24238,7 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
             minItems: 1,
             type: "array",
             items: {
-              anyOf: [
+              oneOf: [
                 {
                   type: "object",
                   properties: {
@@ -24433,7 +24409,7 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                         type: "string"
                       },
                       additionalProperties: {
-                        anyOf: [
+                        oneOf: [
                           {
                             type: "object",
                             properties: {
@@ -24596,7 +24572,7 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                       type: "string"
                     },
                     value: {
-                      anyOf: [
+                      oneOf: [
                         {
                           type: "object",
                           properties: {
@@ -24892,13 +24868,9 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                       type: "string"
                     },
                     variableId: {
-                      anyOf: [
-                        {
-                          type: "string"
-                        },
-                        {
-                          type: "null"
-                        }
+                      type: [
+                        "string",
+                        "null"
                       ]
                     }
                   },
@@ -24922,13 +24894,9 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
                       type: "string"
                     },
                     mode: {
-                      anyOf: [
-                        {
-                          type: "string"
-                        },
-                        {
-                          type: "null"
-                        }
+                      type: [
+                        "string",
+                        "null"
                       ]
                     }
                   },
@@ -25110,10 +25078,10 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
             description: "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
           },
           nodeId: {
-            description: "The artboard or layer to export.",
             type: "string",
             minLength: 1,
-            maxLength: 400
+            maxLength: 400,
+            description: "The artboard or layer to export."
           },
           format: {
             description: "png, jpeg, webp, svg, pdf or html. Left out, the layer is exported as its own export settings say; a layer with none is a PDF.",
@@ -25153,10 +25121,10 @@ design_lint is for you, not the person. Never quote its findings. Read tokenChoi
             description: "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
           },
           nodeId: {
-            description: "The artboard or layer to draw.",
             type: "string",
             minLength: 1,
-            maxLength: 400
+            maxLength: 400,
+            description: "The artboard or layer to draw."
           },
           scale: {
             description: "Picture pixels per CSS pixel, 1 when not given. Above 3 is drawn at 3; a node that would pass 3200 pixels a side is drawn smaller. The answer gives the scale used.",
