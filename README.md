@@ -83,3 +83,13 @@ The tool list comes from the running app, so it matches the version you have ins
 ## What is in this repository
 
 `dist/cli.js` is the program the install command runs. It is committed so an agent does not have to build it. `src` is the source of that program. `bun.lock` pins the packages used to produce `dist`. `node_modules` is not committed.
+
+## Limit a connection
+
+By default a connection reaches every file you can. To limit one to a file, a project or a team, add `--scope` when you add it:
+
+```bash
+npx -y github:kitewaysio/kiteways-design-mcp --discovery "/path/to/mcp.json" --scope project:<id>
+```
+
+`--scope` takes `file:<id>`, `project:<id>` or `team:<id>`. You can also set `KITEWAYS_DESIGN_MCP_SCOPE`. An agent cannot change it.

@@ -1,5 +1,5 @@
 {
-  "instructions": "Kiteways Design: you draw and change design files that live on the cloud. A person may be looking at the same file; your changes reach them as you make them.\nEvery call names its file with `fileId`. There is no current file, page or selection: what the person has on screen never decides where you write. Get ids from design_list_files and design_get_context, then keep using those ids.\nEvery write names its place: the parent you create under, the layer you change. To make an artboard, name the page it goes on. A new artboard is placed for you in free room; do not set its left and top.\nA write answers with `sync`: \"saved\" means the server has it; \"saving\" or \"offline\" means it is kept and will be sent; an error means it was refused and taken back.\nRead the outline of a place before writing into it. The person watches the canvas while you work, and each call shows there as it lands: build in small visible pieces. Write one element or one small group per call (the navigation, the headline, one card, a row of buttons), never a whole section or screen in one write. Use design_edit_batch only to change many existing layers at once (a bulk restyle the person asked for, a rename across a page), and even then batch one group at a time.\nCall design_get_context first. designSystem.next is \"tokens\" or \"artboards\". When it is \"tokens\", Colour, Type, Spacing, Radius, Shadow or Border is missing or empty. Create each of those collections with design_tokens_set, at least one token in each, before any artboard or design_write. When it is \"artboards\", every colour, type (family, size, line height, weight, tracking), spacing, radius, border width and shadow is a var(--token) from those collections. A Type token is whole: one name with its family, size, line height, weight and tracking, made with op createTypography, never a single size, weight or line height. A text layer takes all five values of one token together. The words of a text layer are yours to write. Its type is not.\nText: an element of words only (a heading, a paragraph, a button label) becomes one text layer with its own type, as the person makes them. One text layer has one style: a word in another font or colour is its own element, in a flex row with the rest.\nPictures: you can make them (design_generate_image) and place them (design_place_image); never say you cannot. Use pictures the person attached: place them, or pass them as references when they ask for something based on them. A picture they point at (a path on their computer, a web link) comes in with design_upload_image. Make a picture when the design needs one (a hero photo, a product shot, an illustration) even if not asked. Every place for a picture is an <img data-name=\"…\" alt=\"…\" style=\"width: …; height: …\"> (an image layer, with the agent mark beside it for the person), never a plain frame or rectangle; then fill it. If a picture cannot be made right now, keep the image layer empty and say so in one line.\nAsk before a choice only the person can make (a brand, real content, which of two directions): end your turn with one short question instead of guessing. Do not ask about what you can decide yourself.\ndesign_lint is for you, not the person. Never quote its findings. Read tokenChoices and use one of those tokens. Add a new token only when none of them is the value you need: design_tokens_set answers with the existing tokens and keeps the batch back until you repeat the create with confirmNeeded: true. Then use the new token. design_render is only after design_lint has nothing left, and only for what a rule cannot see.",
+  "instructions": "Kiteways Design: you draw and change design files that live on the cloud. A person may be looking at the same file; your changes reach them as you make them.\nEvery call names its file with `fileId`. There is no current file, page or selection: what the person has on screen never decides where you write. Get ids from design_list_files and design_get_context, then keep using those ids.\nEvery write names its place: the parent you create under, the layer you change. To make an artboard, name the page it goes on. A new artboard is placed for you in free room; do not set its left and top.\nA write answers with `sync`: \"saved\" means the server has it; \"saving\" or \"offline\" means it is kept and will be sent; an error means it was refused and taken back.\nRead the outline of a place before writing into it. The person watches the canvas while you work, and each call shows there as it lands: build in small visible pieces. Write one element or one small group per call (the navigation, the headline, one card, a row of buttons), never a whole section or screen in one write. Use design_edit_batch only to change many existing layers at once (a bulk restyle the person asked for, a rename across a page), and even then batch one group at a time.\nCall design_get_context first. designSystem.next is \"tokens\" or \"artboards\". When it is \"tokens\", Colour, Type, Spacing, Radius, Shadow or Border is missing or empty. Create each of those collections with design_tokens_set, at least one token in each, before any artboard or design_write. When it is \"artboards\", every colour, type (family, size, line height, weight, tracking), spacing, radius, border width and shadow is a var(--token) from those collections. A Type token is whole: one name with its family, size, line height, weight and tracking, made with op createTypography, never a single size, weight or line height. A text layer takes all five values of one token together, with the setTypography operation of design_edit_batch. The words of a text layer are yours to write. Its type is not.\nText: an element of words only (a heading, a paragraph, a button label) becomes one text layer with its own type, as the person makes them. One text layer has one style: a word in another font or colour is its own element, in a flex row with the rest.\nPictures: you can make them (design_generate_image) and place them (design_place_image); never say you cannot. Use pictures the person attached: place them, or pass them as references when they ask for something based on them. A picture they point at (a path on their computer, a web link) comes in with design_upload_image, or straight from <img src> in design_write. Make a picture when the design needs one (a hero photo, a product shot, an illustration) even if not asked. Every place for a picture is an <img data-name=\"…\" alt=\"…\" style=\"width: …; height: …\"> (an image layer, with the agent mark beside it for the person), never a plain frame or rectangle; then fill it. If a picture cannot be made right now, keep the image layer empty and say so in one line.\nAsk before a choice only the person can make (a brand, real content, which of two directions): end your turn with one short question instead of guessing. Do not ask about what you can decide yourself.\ndesign_lint is for you, not the person. Never quote its findings. Use the tokens that exist (design_tokens_get, or includeTokenChoices: true once per file). Add a new token only when none of them is the value you need: design_tokens_set answers with the existing tokens and keeps the batch back until you repeat the create with confirmNeeded: true. Then use the new token. design_render is only after design_lint has nothing left, and only for what a rule cannot see.",
   "tools": [
     {
       "name": "design_list_files",
@@ -145,7 +145,7 @@
     },
     {
       "name": "design_edit_batch",
-      "description": "Change the file: an ordered list of operations (create, setStyle, setText, setName, move, duplicate, delete, proposeStyle) applied as ONE step. For changing many existing layers at once (a bulk restyle, a rename across a page), one group at a time; to build something new, use design_write one element or small group per call so the person sees it come together. All of it lands or none does, and it is one undo. Every operation is strict: an unknown field fails the batch and names the field. `create` names its parent: a page has no parent (leave `parentId` out), an artboard goes under a page, everything else inside an artboard; `styles` on create are applied as it is made. Colour, type, spacing, radius, border width and shadow are var(--token) from the design system. If design_get_context says designSystem.next is \"tokens\", create the tokens first and do not draw. `index` (0-based among the new parent's children) places what is made, moved or duplicated; `order` is the raw key instead. `duplicate` copies a layer or artboard with everything inside it under new ids and answers with the copy's id. Style names may be camelCase or kebab-case. A node made earlier in the batch is addressed as `@ref`. Leave `left` and `top` off a new artboard: it is placed in free room on its page; a place known to cover another artboard is refused, judged after the whole batch (a height that follows the content counts only from its top).",
+      "description": "Change the file: an ordered list of operations (create, setStyle, unsetStyle, setTypography, setText, setName, move, duplicate, delete, proposeStyle) applied as ONE step. For changing many existing layers at once (a bulk restyle, a rename across a page), one group at a time; to build something new, use design_write one element or small group per call so the person sees it come together. All of it lands or none does, and it is one undo. Every operation is strict: an unknown field fails the batch and names the field. `create` names its parent: a page has no parent (leave `parentId` out), an artboard goes under a page, everything else inside an artboard; `styles` on create are applied as it is made. Colour, type, spacing, radius, border width and shadow are var(--token) from the design system. If design_get_context says designSystem.next is \"tokens\", create the tokens first and do not draw. `index` (0-based among the new parent's children) places what is made, moved or duplicated; `order` is the raw key instead. `duplicate` copies a layer or artboard with everything inside it under new ids and answers with the copy's id. Style names may be camelCase or kebab-case. A node made earlier in the batch is addressed as `@ref`. `setTypography` writes all five type values of one whole token (`token: \"Display/lg\"`); never set them one by one. `setText` works only on a text layer. The answer gives `applied` and, in `results`, one row per layer made; a failure gives `failedAt` and `error`. Leave `left` and `top` off a new artboard: it is placed in free room on its page; a place known to cover another artboard is refused, judged after the whole batch (a height that follows the content counts only from its top).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -279,6 +279,70 @@
                   "properties": {
                     "op": {
                       "type": "string",
+                      "const": "unsetStyle"
+                    },
+                    "target": {
+                      "type": "string",
+                      "description": "A node id, or `@ref` of a node made earlier in this batch."
+                    },
+                    "breakpoint": {
+                      "default": "base",
+                      "type": "string"
+                    },
+                    "state": {
+                      "default": "default",
+                      "type": "string"
+                    },
+                    "property": {
+                      "type": "string",
+                      "pattern": "^(?:--[A-Za-z0-9_-]+|-?[A-Za-z][A-Za-z0-9-]*)$",
+                      "description": "A CSS property: camelCase (`backgroundColor`) or kebab-case (`background-color`), both stored as camelCase; `-webkit-x` is `WebkitX`; a custom property (`--brand`) is kept as written."
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "target",
+                    "property"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
+                      "const": "setTypography"
+                    },
+                    "target": {
+                      "type": "string",
+                      "description": "A node id, or `@ref` of a node made earlier in this batch."
+                    },
+                    "token": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "The name of a whole token in the Type collection, as design_tokens_get lists it: `Display/lg`."
+                    },
+                    "breakpoint": {
+                      "default": "base",
+                      "type": "string"
+                    },
+                    "state": {
+                      "default": "default",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op",
+                    "target",
+                    "token"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "op": {
+                      "type": "string",
                       "const": "proposeStyle"
                     },
                     "target": {
@@ -346,7 +410,7 @@
                     },
                     "target": {
                       "type": "string",
-                      "description": "A node id, or `@ref` of a node made earlier in this batch."
+                      "description": "A text layer. Anything else is refused: it cannot show words."
                     },
                     "text": {
                       "type": "string"
@@ -509,7 +573,7 @@
     },
     {
       "name": "design_write",
-      "description": "Write HTML into a place, one element or one small group per call (the headline, one card, a row of buttons; never a whole section or screen at once): the person watches each piece land. Each element becomes a layer under `parentId` (an artboard or a layer, never a page), its `style` attribute becomes typed styles with `var(--token)` kept, `data-name` names the layer. If design_get_context says designSystem.next is \"tokens\", create Colour, Type, Spacing, Radius, Shadow and Border first and do not write layers. Colour, type (family, size, line height, weight, tracking), spacing, radius, border width and shadow must be var(--token). An inline `<svg>` (any icon set, or your own) becomes one icon layer sized by its width/height and coloured by `color` (use `currentColor` in the SVG); say its set with `data-icon=\"lucide:camera\"` or `data-icon=\"phosphor:house:bold\"`. Code generation is paused, so that name is kept and no React file is written. HTML export of the layer is separate and still works. Any Google Fonts family named in `font-family` is loaded. One undo; nothing is kept if any of it fails. Answers with `rootNodeIds` (the layers made directly under `parentId`) and `createdCount`; pass `returnAllIds: true` for every id, or read the outline of a root.",
+      "description": "Write HTML into a place, one element or one small group per call (the headline, one card, a row of buttons; never a whole section or screen at once): the person watches each piece land. Each element becomes a layer under `parentId` (an artboard or a layer, never a page), its `style` attribute becomes typed styles with `var(--token)` kept, `data-name` names the layer. If design_get_context says designSystem.next is \"tokens\", create Colour, Type, Spacing, Radius, Shadow and Border first and do not write layers. Colour, type (family, size, line height, weight, tracking), spacing, radius, border width and shadow must be var(--token). An inline `<svg>` (any icon set, or your own) becomes one icon layer sized by its width/height and coloured by `color` (use `currentColor` in the SVG); say its set with `data-icon=\"lucide:camera\"` or `data-icon=\"phosphor:house:bold\"`. Code generation is paused, so that name is kept and no React file is written. HTML export of the layer is separate and still works. Any Google Fonts family named in `font-family` is loaded. An `<img src>` may name a picture of the file (`image:<sha1>`), a public https address or a full path on this computer: it is brought in and fills the layer, no second call. Lines inside `<pre>` or `white-space: pre` are kept. `index` places what is written among the children of the parent; calls sent at the same time land in no promised order. One undo; nothing is kept if any of it fails. Answers with `rootNodeIds` (the layers made directly under `parentId`) and `createdCount`; pass `returnAllIds: true` for every id, or read the outline of a root.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -530,6 +594,12 @@
           "label": {
             "type": "string"
           },
+          "index": {
+            "description": "0-based place of what is written among the parent's children: 0 is first, the number of children is last. Left out, it goes last. Calls sent at the same time land in no promised order: send them one at a time, or give each its index.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
           "returnAllIds": {
             "description": "Also return the id of every layer made (`createdNodeIds`), not only the top ones. Off by default: a large write makes hundreds.",
             "type": "boolean"
@@ -547,7 +617,7 @@
     },
     {
       "name": "design_query",
-      "description": "Find layers with a CSS-shaped selector: `artboard[name=\"Home\"] *` (any depth), `[name=\"Tabs\"] > button:nth-child(2)` (`>` is direct children; `:nth-child()` takes n, odd, even or An+B), `:text(\"Sign\")` (part of the words), `:text-is(\"Sign in\")` (all of them), `:token(--accent)`, `:literal-color`. Each match gives id, kind, name, tag, parentId and parentName (and a word layer its words), so layers with no name can be told apart. `count` is every match; at most `limit` (200) are listed, `truncated` and `nextOffset` page through the rest. It takes a selector, not ids: to read layers you already have ids for, use design_read_layers.",
+      "description": "Find layers with a CSS-shaped selector: `artboard[name=\"Home\"] *` (any depth), `[name=\"Tabs\"] > button:nth-child(2)` (`>` is direct children; `:nth-child()` takes n, odd, even or An+B), `:text(\"Sign\")` (part of the words), `:text-is(\"Sign in\")` (all of them), `:token(--accent)`, `:literal-color`, `:style(display=grid)`. `[name^=\"X\"]` starts with, `[name$=\"X\"]` ends with. To look up many names, pass `names` instead of a long comma list. `compact: true` gives only id and name. Each match gives id, kind, name, tag, parentId and parentName (and a word layer its words), so layers with no name can be told apart. `count` is every match; at most `limit` (200) are listed, `truncated` and `nextOffset` page through the rest. It takes a selector or names, not ids: to read layers you already have ids for, use design_read_layers.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -560,9 +630,24 @@
             "description": "Run this call inside a transaction of yours (from design_tx_begin): nothing reaches the real file until it is committed."
           },
           "selector": {
+            "description": "CSS-shaped, at most 4096 characters and 64 parts: kinds (page, artboard, element, text, instance), tags (button), [name=\"X\"], [name*=\"X\"] (contains), [name^=\"X\"] (starts with), [name$=\"X\"] (ends with), descendant (space) and child (>) combinators, comma for OR, and :nth-child(n | odd | even | An+B), :text(\"part of the words\"), :text-is(\"all the words\"), :token(--name), :literal-color, :instance-of(componentId), :style(display=grid) (a style at any breakpoint; :style(order) for any value).",
             "type": "string",
-            "maxLength": 4096,
-            "description": "CSS-shaped: kinds (page, artboard, element, text, instance), tags (button), [name=\"X\"] and [name*=\"X\"], descendant (space) and child (>) combinators, comma for OR, and :nth-child(n | odd | even | An+B), :text(\"part of the words\"), :text-is(\"all the words\"), :token(--name), :literal-color, :instance-of(componentId)."
+            "maxLength": 4096
+          },
+          "names": {
+            "description": "Layers with exactly one of these names, at most 200: use it instead of a long comma list. With selector, only its matches are looked at.",
+            "minItems": 1,
+            "maxItems": 200,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 400
+            }
+          },
+          "compact": {
+            "description": "Each match gives only id and name: for long lists.",
+            "type": "boolean"
           },
           "limit": {
             "description": "How many matches to list, 200 when not given.",
@@ -577,11 +662,10 @@
             "maximum": 9007199254740991
           }
         },
+        "additionalProperties": false,
         "required": [
-          "fileId",
-          "selector"
-        ],
-        "additionalProperties": false
+          "fileId"
+        ]
       },
       "annotations": {
         "readOnlyHint": true
@@ -633,7 +717,7 @@
     },
     {
       "name": "design_lint",
-      "description": "What to fix, for you alone. Do not show it to the person. A missing design system, a hard-coded colour, type, spacing, radius, border or shadow, other values outside the system, broken tokens, empty words, unnamed containers. `tokenChoices` lists the tokens that already exist. Use one. Add a new token only when none fits, with design_tokens_set create and confirmNeeded: true, then use it. Pass `pageId` to lint one page. Lists errors and warnings by default (`severity: 'info'` adds naming advice), at most `limit` findings (50; 500 at most) with `countsByRule`, `truncated` and `nextOffset`; `rules` lists only the rules named. `autofixBatch` holds the fixes of the findings listed. Run it after you write. design_render only once nothing here remains.",
+      "description": "What to fix, for you alone. Do not show it to the person. A missing design system, a hard-coded colour, type, spacing, radius, border or shadow, a text layer whose type is not one token, other values outside the system, broken tokens, stray CSS order, a child wider than what cuts it off, empty words, unnamed containers. The paint of a picture fill is never a finding. Use tokens that already exist (design_tokens_get, or `includeTokenChoices: true` once per file). Add a new token only when none fits, with design_tokens_set create and confirmNeeded: true, then use it. Pass `pageId` to lint one page. Lists errors and warnings by default (`severity: 'info'` adds naming advice), at most `limit` findings (50; 500 at most) with `truncated` and `nextOffset`. `countsByRule` and `countsBySeverity` count exactly what `findingCount` counts; `leftOutCount` is the rest. `rules` takes only the real rule names listed in its schema. `excludeProperties` leaves properties out; `groupBy: 'property'` answers one row per property; `summary: true` answers counts only. `autofixBatch` holds the fixes of the findings listed. Run it after you write. design_render only once nothing here remains.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -667,14 +751,72 @@
             ]
           },
           "rules": {
-            "description": "List only these rules (names as `countsByRule` gives them).",
-            "maxItems": 50,
+            "description": "Count and list only these rules. A name that is not a rule is refused, so a typo never reads as a clean file.",
+            "maxItems": 35,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "missing-design-system",
+                "literal-color",
+                "unbound-colour",
+                "unbound-type",
+                "unbound-spacing",
+                "unbound-radius",
+                "unbound-shadow",
+                "unbound-border",
+                "mixed-type-token",
+                "off-system-value",
+                "proposed-value",
+                "approved-value",
+                "flex-order",
+                "overflowing-child",
+                "unnamed-container",
+                "empty-text",
+                "variable-duplicate-css-name",
+                "variable-duplicate-attribute",
+                "variable-duplicate-mode",
+                "variable-unknown-collection",
+                "variable-unknown-mode",
+                "variable-missing-default-theme",
+                "variable-missing-default-value",
+                "variable-dangling-alias",
+                "variable-alias-cycle",
+                "variable-alias-type-mismatch",
+                "variable-alias-too-deep",
+                "variable-invalid-name",
+                "variable-invalid-attribute",
+                "variable-invalid-value",
+                "variable-css-name-mismatch",
+                "variable-stale-pin",
+                "variable-dangling-binding",
+                "variable-binding-type-mismatch",
+                "variable-dangling-reference"
+              ]
+            }
+          },
+          "excludeProperties": {
+            "description": "Leave findings about these style properties out of the counts and the list (`boxShadow` or `box-shadow`).",
+            "maxItems": 100,
             "type": "array",
             "items": {
               "type": "string",
               "minLength": 1,
               "maxLength": 100
             }
+          },
+          "groupBy": {
+            "description": "Instead of one row per finding, one row per style property: `groups` gives rule, count and a few example layers. Fixes are not listed.",
+            "type": "string",
+            "const": "property"
+          },
+          "summary": {
+            "description": "Counts only: `findings` comes back empty. The cheapest way to ask whether anything is left.",
+            "type": "boolean"
+          },
+          "includeTokenChoices": {
+            "description": "Also return `tokenChoices`, every token of the six collections. It is long: ask once per file, or read design_tokens_get.",
+            "type": "boolean"
           },
           "limit": {
             "description": "How many findings to list, 50 when not given, 500 at most.",
@@ -745,7 +887,7 @@
     },
     {
       "name": "design_tokens_set",
-      "description": "Change the file's tokens: collections, modes, tokens, aliases, bindings of a layer to a token, theme pins. The design system is the collections Colour, Type, Spacing, Radius, Shadow and Border. Create those, with at least one token each, before any artboard. Type holds whole typography tokens only: make each with op createTypography (name, family, size, lineHeight, weight, tracking), never a single size, weight or line height. Text takes all five var(--…) of one token together. Name what you create with `ref` and point at it later in the same batch as `@ref`. A create into a collection that already has tokens is refused, the batch is kept back, and the answer lists every existing token. Repeat that create with confirmNeeded: true only when none of them is the value you need, then bind the new token. One undo; all or nothing.",
+      "description": "Change the file's tokens: collections, modes, tokens, aliases, bindings of a layer to a token, theme pins. The design system is the collections Colour, Type, Spacing, Radius, Shadow and Border. Create those, with at least one token each, before any artboard. Type holds whole typography tokens only: make each with op createTypography (name, family, size and lineHeight in px, weight, tracking in em from -0.2 to 0.2; a family with no generic fallback is given one), never a single size, weight or line height. Text takes all five values of one token together: use the setTypography operation of design_edit_batch. Name what you create with `ref` and point at it later in the same batch as `@ref`. A create into a collection that already has tokens is refused, the batch is kept back, and the answer lists every existing token. Repeat that create with confirmNeeded: true only when none of them is the value you need, then bind the new token. One undo; all or nothing.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1097,7 +1239,8 @@
                       "type": "string"
                     },
                     "family": {
-                      "type": "string"
+                      "type": "string",
+                      "minLength": 1
                     },
                     "size": {
                       "type": "number",
@@ -1114,7 +1257,10 @@
                     },
                     "tracking": {
                       "default": 0,
-                      "type": "number"
+                      "type": "number",
+                      "minimum": -0.2,
+                      "maximum": 0.2,
+                      "description": "Letter spacing in em, from -0.2 to 0.2: -0.02 is tight, 0.05 is open. Not pixels."
                     },
                     "confirmNeeded": {
                       "type": "boolean"
@@ -1668,6 +1814,16 @@
               "pdf",
               "html"
             ]
+          },
+          "outputDirectory": {
+            "description": "The folder to write the files to: an absolute path or one starting with ~/, under the home folder, a mounted disk or a temporary folder, with no hidden folder on the way. Left out, a new temporary folder. A file already there is kept; the new one gets a number.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "inline": {
+            "description": "Also put each file in the answer as base64, when all of them come to at most 262144 bytes. Off by default: base64 costs tokens that cannot be read.",
+            "type": "boolean"
           }
         },
         "required": [
@@ -1681,8 +1837,46 @@
       }
     },
     {
+      "name": "design_copy_tokens",
+      "description": "Copy the design system of another file into this one: its collections, themes and tokens, aliases kept. Layers are not touched. A token with a name this file already has is left as it is and listed in `skipped`. One undo.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The design file this call is for. Required on every call: there is no current file."
+          },
+          "fromFileId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 400,
+            "description": "The file to copy the design system from. `fileId` is the file it is copied into."
+          },
+          "collections": {
+            "description": "Only the collections with these names. Left out, all of them.",
+            "minItems": 1,
+            "maxItems": 50,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            }
+          }
+        },
+        "required": [
+          "fileId",
+          "fromFileId"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false
+      }
+    },
+    {
       "name": "design_render",
-      "description": "Draw one node (an artboard or a layer) and get the picture back. Drawn from your own copy of the file, so it shows your latest work; with `transactionId`, as that transaction has it. A layer is drawn as it stands in its artboard, with whatever of it shows outside its box. The answer gives `width`, `height`, the `scale` used, the `requestedScale`, and `capped: true` with a `note` when the scale was lowered (above 3, or a picture past 3200 pixels a side). Call it only after design_lint reports no errors. It checks what a rule cannot see. The linter is how you know the design stays on the system.",
+      "description": "Draw one node (an artboard or a layer) and get the picture back. Drawn from your own copy of the file, so it shows your latest work; with `transactionId`, as that transaction has it. A layer is drawn as it stands in its artboard, with whatever of it shows outside its box. The answer gives `width`, `height`, the `scale` used, the `requestedScale`, and `capped: true` with a `note` when the scale was lowered (above 3, or a picture past 3200 pixels a side). A tall page: pass `region` for a part at full size. `width` lays the board out at that width with its breakpoints in force. `fontsNotLoaded` names families drawn in a fallback: judge no line break from those. Where a layer paints nothing, the ground around it shows, as on the canvas. Call it only after design_lint reports no errors. It checks what a rule cannot see. The linter is how you know the design stays on the system.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1699,6 +1893,41 @@
             "minLength": 1,
             "maxLength": 400,
             "description": "The artboard or layer to draw."
+          },
+          "region": {
+            "type": "object",
+            "properties": {
+              "left": {
+                "type": "number",
+                "minimum": 0
+              },
+              "top": {
+                "type": "number",
+                "minimum": 0
+              },
+              "width": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "height": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            },
+            "required": [
+              "left",
+              "top",
+              "width",
+              "height"
+            ],
+            "additionalProperties": false,
+            "description": "Only this part of the picture, in CSS pixels from its top left: read a tall page a piece at a time, at full size, past the 3200-pixel limit on the whole."
+          },
+          "width": {
+            "description": "Lay the artboard out at this width in CSS pixels, with the min-width breakpoints in force at it (`min-768` on setStyle): one board, its phone and desktop pictures.",
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 10000
           },
           "scale": {
             "description": "Picture pixels per CSS pixel, 1 when not given. Above 3 is drawn at 3; a node that would pass 3200 pixels a side is drawn smaller. The answer gives the scale used.",

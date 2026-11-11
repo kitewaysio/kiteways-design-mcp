@@ -5,6 +5,15 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { AppBridge, createBridgeServer, dialerFromDiscovery } from './bridge.ts';
 import { discoveryFilePath } from './discovery.ts';
 
+const SCOPE_FLAG = '--scope';
+const SCOPE_VARIABLE = 'KITEWAYS_DESIGN_MCP_SCOPE';
+
+/** What the person limited this connection to: `file:<id>`, `project:<id>` or `team:<id>`. */
+function scopeOf(argumentList: readonly string[]): string | undefined {
+  const flagAt = argumentList.indexOf(SCOPE_FLAG);
+  return (flagAt === -1 ? undefined : argumentList[flagAt + 1]) ?? process.env[SCOPE_VARIABLE];
+}
+
 async function main(): Promise<void> {
   let path: string;
   try {
@@ -15,7 +24,9 @@ async function main(): Promise<void> {
     process.exitCode = 2;
     return;
   }
-  const bridge = new AppBridge(dialerFromDiscovery(() => readFile(path, 'utf8')));
+  const bridge = new AppBridge(
+    dialerFromDiscovery(() => readFile(path, 'utf8'), scopeOf(process.argv.slice(2))),
+  );
   const server = createBridgeServer(bridge);
   const leave = () => {
     void bridge.close().finally(() => process.exit(0));

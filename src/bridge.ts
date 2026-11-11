@@ -31,13 +31,23 @@ const NEVER_HANDLED = new Set([401, 404]);
 
 export type Dialer = () => Promise<Client>;
 
-export function dialerFromDiscovery(readDiscoveryText: () => Promise<string>): Dialer {
+export function dialerFromDiscovery(
+  readDiscoveryText: () => Promise<string>,
+  scope?: string,
+): Dialer {
   return async () => {
     const discovery = Discovery.parse(JSON.parse(await readDiscoveryText()));
     const client = new Client({ name: 'kiteways-design', version: '1' });
     const transport = new StreamableHTTPClientTransport(
       new URL(`http://127.0.0.1:${discovery.port}${ENDPOINT}`),
-      { requestInit: { headers: { authorization: `Bearer ${discovery.token}` } } },
+      {
+        requestInit: {
+          headers: {
+            authorization: `Bearer ${discovery.token}`,
+            ...(scope ? { 'x-kiteways-scope': scope } : {}),
+          },
+        },
+      },
     );
     await client.connect(transport);
     return client;
