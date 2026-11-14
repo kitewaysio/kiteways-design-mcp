@@ -12,6 +12,7 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 import { z } from 'zod';
 
+import { requireTheApp } from './app-check.ts';
 import catalog from './tools.json' with { type: 'json' };
 
 const ENDPOINT = '/mcp';
@@ -19,8 +20,9 @@ const ENDPOINT = '/mcp';
 const Discovery = z.object({
   port: z.number().int().positive().max(65_535),
   token: z.string().min(1),
+  /** The process that wrote the file. A file whose process is gone points at nothing. */
+  pid: z.number().int().positive().optional(),
 });
-
 const NOT_RUNNING =
   'The Kiteways Design app is not running, or has not finished starting. Open it, sign in, and try again. Nothing was written.';
 const OUTCOME_UNKNOWN =
@@ -34,16 +36,24 @@ export type Dialer = () => Promise<Client>;
 export function dialerFromDiscovery(
   readDiscoveryText: () => Promise<string>,
   scope?: string,
+  /**
+   * The token of a connection made in the app, bound there to what it may reach. Presented
+   * instead of the discovery file's own token, which reaches everything.
+   */
+  connectionToken?: string,
 ): Dialer {
   return async () => {
     const discovery = Discovery.parse(JSON.parse(await readDiscoveryText()));
+    // nothing is sent to the port, the token least of all, until the listener has shown it
+    // is the app that wrote the file (app-check.ts)
+    await requireTheApp(discovery);
     const client = new Client({ name: 'kiteways-design', version: '1' });
     const transport = new StreamableHTTPClientTransport(
       new URL(`http://127.0.0.1:${discovery.port}${ENDPOINT}`),
       {
         requestInit: {
           headers: {
-            authorization: `Bearer ${discovery.token}`,
+            authorization: `Bearer ${connectionToken ?? discovery.token}`,
             ...(scope ? { 'x-kiteways-scope': scope } : {}),
           },
         },

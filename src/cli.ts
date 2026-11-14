@@ -4,20 +4,17 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 
 import { AppBridge, createBridgeServer, dialerFromDiscovery } from './bridge.ts';
 import { discoveryFilePath } from './discovery.ts';
-
-const SCOPE_FLAG = '--scope';
-const SCOPE_VARIABLE = 'KITEWAYS_DESIGN_MCP_SCOPE';
-
-/** What the person limited this connection to: `file:<id>`, `project:<id>` or `team:<id>`. */
-function scopeOf(argumentList: readonly string[]): string | undefined {
-  const flagAt = argumentList.indexOf(SCOPE_FLAG);
-  return (flagAt === -1 ? undefined : argumentList[flagAt + 1]) ?? process.env[SCOPE_VARIABLE];
-}
+import { connectionTokenOf, scopeArgumentOf } from './scope.ts';
 
 async function main(): Promise<void> {
   let path: string;
+  let scope: string | undefined;
+  let connectionToken: string | undefined;
   try {
     path = discoveryFilePath(process.argv.slice(2));
+    // a limit that cannot be read is never taken as no limit: the program does not start
+    scope = scopeArgumentOf(process.argv.slice(2), process.env);
+    connectionToken = connectionTokenOf(process.env);
   } catch (failure) {
     const message = failure instanceof Error ? failure.message : 'Invalid arguments.';
     process.stderr.write(`${message}\n`);
@@ -25,7 +22,7 @@ async function main(): Promise<void> {
     return;
   }
   const bridge = new AppBridge(
-    dialerFromDiscovery(() => readFile(path, 'utf8'), scopeOf(process.argv.slice(2))),
+    dialerFromDiscovery(() => readFile(path, 'utf8'), scope, connectionToken),
   );
   const server = createBridgeServer(bridge);
   const leave = () => {
