@@ -18,7 +18,7 @@ Add this to `~/.cursor/mcp.json`, or to `.cursor/mcp.json` in one project:
   "mcpServers": {
     "kiteways-design": {
       "command": "npx",
-      "args": ["-y", "github:kitewaysio/kiteways-design-mcp#v0.14.0"]
+      "args": ["-y", "github:kitewaysio/kiteways-design-mcp#v0.14.1"]
     }
   }
 }
@@ -29,7 +29,7 @@ Reload Cursor. The server is named `kiteways-design`.
 ## Claude Code
 
 ```bash
-claude mcp add kiteways-design -- npx -y github:kitewaysio/kiteways-design-mcp#v0.14.0
+claude mcp add kiteways-design -- npx -y github:kitewaysio/kiteways-design-mcp#v0.14.1
 ```
 
 ## Claude Desktop
@@ -43,7 +43,7 @@ In `~/.codex/config.toml`:
 ```toml
 [mcp_servers.kiteways-design]
 command = "npx"
-args = ["-y", "github:kitewaysio/kiteways-design-mcp#v0.14.0"]
+args = ["-y", "github:kitewaysio/kiteways-design-mcp#v0.14.1"]
 ```
 
 ## Any other MCP client
@@ -51,12 +51,12 @@ args = ["-y", "github:kitewaysio/kiteways-design-mcp#v0.14.0"]
 Start this command and speak MCP on its standard input and output:
 
 ```bash
-npx -y github:kitewaysio/kiteways-design-mcp#v0.14.0
+npx -y github:kitewaysio/kiteways-design-mcp#v0.14.1
 ```
 
 ## The version in these commands
 
-Every command above ends in `#v0.14.0`: it installs that one released version, not whatever was pushed last. An agent starts this program each time a chat begins, with the app's local address and token in reach, so it must never run code that changed since you added it. To move to a newer version, change the number yourself after reading its release notes. Do not remove `#v…`.
+Every command above ends in `#v0.14.1`: it installs that one released version, not whatever was pushed last. An agent starts this program each time a chat begins, with the app's local address and token in reach, so it must never run code that changed since you added it. To move to a newer version, change the number yourself after reading its release notes. Do not remove `#v…`.
 
 ## Where the app is found
 
@@ -71,7 +71,7 @@ The app writes `mcp.json` when it starts and removes it when it quits. If the ap
 The trial build uses `Kiteways Design Trial` in that same path. To point at a different file:
 
 ```bash
-npx -y github:kitewaysio/kiteways-design-mcp#v0.14.0 --discovery "/path/to/mcp.json"
+npx -y github:kitewaysio/kiteways-design-mcp#v0.14.1 --discovery "/path/to/mcp.json"
 ```
 
 or set `KITEWAYS_DESIGN_MCP_DISCOVERY` to that path.
@@ -99,7 +99,7 @@ If `KITEWAYS_DESIGN_MCP_TOKEN` is set and is not a connection token, the program
 By default a connection reaches every file you can. To limit one to a file, a project or a team, add `--scope` when you add it:
 
 ```bash
-npx -y github:kitewaysio/kiteways-design-mcp#v0.14.0 --discovery "/path/to/mcp.json" --scope project:<id>
+npx -y github:kitewaysio/kiteways-design-mcp#v0.14.1 --discovery "/path/to/mcp.json" --scope project:<id>
 ```
 
 `--scope` takes `file:<id>`, `project:<id>` or `team:<id>`. You can also set `KITEWAYS_DESIGN_MCP_SCOPE`. An agent cannot change it.
